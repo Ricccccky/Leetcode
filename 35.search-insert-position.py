@@ -10,13 +10,23 @@ class Solution:
         if (nums == None or len(nums) == 0):
             return 0
         
-        for i in range(len(nums)):
-            if nums[i] == target:
-                return i
-            elif nums[i] < target:
-                continue
+        start = 0
+        end = len(nums) - 1
+
+        while (start + 1 < end):
+            median = (end - start) // 2 + start
+            if nums[median] == target:
+                return median
+            elif nums[median] < target:
+                start = median
             else:
-                return i
-        return len(nums)
+                end = median
+
+        if nums[start] >= target:
+            return start
+        elif nums[end] >= target:
+            return end
+        else:
+            return end + 1
 # @lc code=end
 

@@ -17,6 +17,7 @@ class Solution:
         self.result = []
 
     def inorderTraversal(self, root: TreeNode) -> List[int]:
+        # Recursive method
         if root:
             self.inorderTraversal(root.left)
             self.result.append(root.val)

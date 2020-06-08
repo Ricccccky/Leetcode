@@ -46,14 +46,13 @@ class Solution {
     }
 
     public TreeNode findMax(TreeNode root) {
-        TreeNode head = root;
-        while (head != null) {
-            if (head.right == null) {
-                return head;
+        while (root != null) {
+            if (root.right == null) {
+                return root;
             }
-            head = head.right;
+            root = root.right;
         }
-        return head;
+        return root;
     }
 
     public TreeNode deletePrecursor(TreeNode root) {

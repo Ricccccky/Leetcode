@@ -33,8 +33,10 @@ class Solution {
         }
         for (int i = 0; i < m; i++) {
             groupTable.put(i, new ArrayList<>());
+            item2group.put(i, new ArrayList<>());
         }
         for (int i = 0; i < n; i++) {
+            item2group.computeIfAbsent(group[i], k -> new ArrayList<>()).add(i);
             Iterator<Integer> before = beforeItems.get(i).iterator();
             while (before.hasNext()) {
                 int fromItem = before.next();
@@ -42,9 +44,10 @@ class Solution {
                 if (fromGroup != group[i]) {
                     groupTable.computeIfAbsent(fromGroup, k -> new ArrayList<>()).add(group[i]);
                     groupIndegree[group[i]]++;
+                } else {
+                    itemTable.computeIfAbsent(fromItem, k -> new ArrayList<>()).add(i);
+                    itemIndegree[i]++;
                 }
-                itemTable.computeIfAbsent(fromItem, k -> new ArrayList<>()).add(i);
-                itemIndegree[i]++;
             }
         }
         Queue<Integer> queue = new LinkedList<>();
@@ -54,7 +57,6 @@ class Solution {
                 queue.offer(key);
             }
         }
-        System.out.println(queue);
         int numGroup = 0;
         while (!queue.isEmpty()) {
             int entrance = queue.poll();
@@ -70,37 +72,35 @@ class Solution {
         if (numGroup != m) {
             return new int[0];
         }
-
-        queue.clear();
-        List<Integer> itemOrder = new ArrayList<>();
-        for (int item : itemTable.keySet()) {
-            if (itemIndegree[item] == 0) {
-                queue.offer(item);
-            }
-        }
-        int numItem = 0;
-        while (!queue.isEmpty()) {
-            int entrance = queue.poll();
-            itemOrder.add(entrance);
-            numItem++;
-            for (int t : itemTable.get(entrance)) {
-                itemIndegree[t]--;
-                if (itemIndegree[t] == 0) {
-                    queue.offer(t);
+        for (Integer key : item2group.keySet()) {
+            queue.clear();
+            List<Integer> temp = item2group.get(key);
+            for (int item : temp) {
+                if (itemIndegree[item] == 0) {
+                    queue.offer(item);
                 }
             }
-        }
-        System.out.println(groupOrder);
-        if (numItem != n) {
-            return new int[0];
-        }
-        for (Integer item : itemOrder) {
-            item2group.computeIfAbsent(group[item], k -> new ArrayList<>()).add(item);
+            List<Integer> newOrder = new ArrayList<>();
+            int numItem = 0;
+            while (!queue.isEmpty()) {
+                int entrance = queue.poll();
+                newOrder.add(entrance);
+                numItem++;
+                for (int t : itemTable.get(entrance)) {
+                    itemIndegree[t]--;
+                    if (itemIndegree[t] == 0) {
+                        queue.offer(t);
+                    }
+                }
+            }
+            if (numItem != temp.size()) {
+                return new int[0];
+            }
+            item2group.put(key, newOrder);
         }
         int count = 0;
         for (Integer gp : groupOrder) {
-            List<Integer> items = item2group.getOrDefault(gp, new ArrayList<>());
-            for (Integer item : items) {
+            for (Integer item : item2group.get(gp)) {
                 result[count] = item;
                 count++;
             }

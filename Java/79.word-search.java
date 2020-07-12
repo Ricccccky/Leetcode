@@ -12,13 +12,10 @@ class Solution {
             for (int j = 0; j < board[i].length; j++) {
                 if (board[i][j] == word.charAt(0)) {
                     dfs(board, word, new boolean[board.length][board[i].length], i, j, 1);
-                    if (result) {
-                        return true;
-                    }
                 }
             }
         }
-        return false;
+        return result;
     }
 
     public void dfs(char[][] board, String word, boolean[][] used, int row, int col, int index) {

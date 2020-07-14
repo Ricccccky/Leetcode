@@ -18,28 +18,24 @@ import java.util.Arrays;
  */
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        if (preorder.length == 0) {
-            return null;
-        }
-        TreeNode root = new TreeNode(preorder[0]);
-        int rootIndex = indexOf(inorder, preorder[0]);
-        if (preorder.length > 1) {
-            root.left = buildTree(Arrays.copyOfRange(preorder, 1, rootIndex + 1), Arrays.copyOfRange(inorder, 0, rootIndex));
-            root.right = buildTree(Arrays.copyOfRange(preorder, rootIndex + 1, preorder.length), Arrays.copyOfRange(inorder, rootIndex + 1, inorder.length));
-        } else {
-            root.left = null;
-            root.right = null;
-        }
-        return root;
+        return TreeBuilder(preorder, inorder, 0, 0, inorder.length - 1);
     }
 
-    public int indexOf(int[] list, int n) {
-        for (int i = 0; i < list.length; i++) {
-            if (list[i] == n) {
-                return i;
+    private TreeNode TreeBuilder(int[] preorder, int[] inorder, int preStart, int inStart, int inEnd) {
+        if (preStart > preorder.length - 1 || inStart > inEnd) {
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[preStart]);
+        int rootIndex = 0;
+        for (int i = inStart; i <= inEnd; i++) {
+            if (inorder[i] == preorder[preStart]) {
+                rootIndex = i;
+                break;
             }
         }
-        return -1;
+        root.left = TreeBuilder(preorder, inorder, preStart + 1, inStart, rootIndex - 1);
+        root.right = TreeBuilder(preorder, inorder, preStart + (rootIndex - inStart) + 1, rootIndex + 1, inEnd);
+        return root;
     }
 }
 // @lc code=end

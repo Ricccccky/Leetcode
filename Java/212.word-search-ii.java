@@ -9,14 +9,14 @@ import java.util.List;
 
 // @lc code=start
 class Solution {
-    class TireNode {
-        TireNode[] next = new TireNode[26];
+    class TrieNode {
+        TrieNode[] next = new TrieNode[26];
         String word;
     }
 
     public List<String> findWords(char[][] board, String[] words) {
         List<String> result = new ArrayList<>();
-        TireNode root = TireNodeBuilder(words);
+        TrieNode root = TrieNodeBuilder(words);
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++){
                 backtracking(board, i, j, root, result);
@@ -25,7 +25,7 @@ class Solution {
         return result;
     }
 
-    private void backtracking(char[][] board, int row, int col, TireNode p, List<String> result) {
+    private void backtracking(char[][] board, int row, int col, TrieNode p, List<String> result) {
         char cur = board[row][col];
         if (cur == '*' || p.next[cur - 'a'] == null) {
             return;
@@ -52,13 +52,13 @@ class Solution {
         board[row][col] = cur;
     }
 
-    private TireNode TireNodeBuilder(String[] words) {
-        TireNode root = new TireNode();
+    private TrieNode TrieNodeBuilder(String[] words) {
+        TrieNode root = new TrieNode();
         for (String word : words) {
-            TireNode p = root;
+            TrieNode p = root;
             for (char c : word.toCharArray()) {
                 if (p.next[c - 'a'] == null) {
-                    p.next[c - 'a'] = new TireNode();
+                    p.next[c - 'a'] = new TrieNode();
                 }
                 p = p.next[c - 'a'];
             }

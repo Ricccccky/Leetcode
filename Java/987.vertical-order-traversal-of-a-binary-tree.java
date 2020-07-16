@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,41 +30,55 @@ import java.util.TreeMap;
  * }
  */
 class Solution {
-    private int maxX = 0, minX = 0;
+    class Coordinate implements Comparable<Coordinate> {
+        public int x;
+        public int y;
+        public int val;
+        
+        public Coordinate(int x, int y, int val) {
+            this.x = x;
+            this.y = y;
+            this.val = val;
+        }
+
+        @Override
+        public int compareTo(Coordinate o) {
+            if (this.x != o.x) {
+                return Integer.compare(this.x, o.x);
+            }
+            if (this.y != o.y) {
+                return Integer.compare(this.y, o.y);
+            }
+            return Integer.compare(this.val, o.val);
+        }
+    }
+
     public List<List<Integer>> verticalTraversal(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
-        if (root == null) {
-            return result;
-        }
-        Map<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map = new HashMap<>();
-        dfs(root, 0, 0, map);
-        for (int i = minX; i <= maxX; i++) {
-            List<Integer> temp = new ArrayList<>();
-            for (int key : map.get(i).keySet()) {
-                while (!map.get(i).get(key).isEmpty()) {
-                    temp.add(map.get(i).get(key).poll());
-                }
+        List<Coordinate> coordinates = new ArrayList<>();
+        dfs(root, coordinates, 0, 0);
+        Collections.sort(coordinates);
+        int cur = coordinates.get(0).x;
+        result.add(new ArrayList<>());
+        for (Coordinate loc : coordinates) {
+            if (loc.x == cur) {
+                result.get(result.size() - 1).add(loc.val);
+            } else {
+                result.add(new ArrayList<>());
+                result.get(result.size() - 1).add(loc.val);
+                cur = loc.x;
             }
-            result.add(temp);
         }
         return result;
     }
 
-    private void dfs(TreeNode root, int x, int y, Map<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map) {
+    private void dfs(TreeNode root, List<Coordinate> coordinates, int x, int y) {
         if (root == null) {
             return;
         }
-        maxX = Math.max(maxX, x);
-        minX = Math.min(minX, x);
-        if (!map.containsKey(x)) {
-            map.put(x, new TreeMap<Integer, PriorityQueue<Integer>>());
-        }
-        if (!map.get(x).containsKey(y)) {
-            map.get(x).put(y, new PriorityQueue<Integer>());
-        }
-        map.get(x).get(y).add(root.val);
-        dfs(root.left, x - 1, y + 1, map);
-        dfs(root.right, x + 1, y + 1, map);
+        coordinates.add(new Coordinate(x, y, root.val));
+        dfs(root.left, coordinates, x - 1, y + 1);
+        dfs(root.right, coordinates, x + 1, y + 1);
     }
 }
 // @lc code=end

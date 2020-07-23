@@ -41,7 +41,7 @@ class Solution {
                 result.clear();
                 result.add(k.getKey());
                 maxFreq = k.getValue();
-            } else if (k.getValue() >= maxFreq) {
+            } else if (k.getValue() == maxFreq) {
                 result.add(k.getKey());
             }
         }

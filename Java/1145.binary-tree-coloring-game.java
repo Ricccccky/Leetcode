@@ -24,7 +24,6 @@ class Solution {
     public boolean btreeGameWinningMove(TreeNode root, int n, int x) {
         int[] player1 = new int[] {x, 0, 0};
         dfs(root, player1);
-        // System.out.println(player1[1] + "," + player1[2]);
         int maxSubtree = Math.max(Math.max(player1[1], player1[2]), n - player1[1] - player1[2] - 1);
         if (maxSubtree > n / 2) {
             return true;

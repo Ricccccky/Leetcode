@@ -25,7 +25,7 @@ class Solution {
         for (int i = 0; i < y; i++) {
             for (int j = 0; j < x; j++) {
                 if (matrix[i][j] == '1') {
-                    height[j] ++;
+                    height[j]++;
                 } else {
                     height[j] = 0;
                 }

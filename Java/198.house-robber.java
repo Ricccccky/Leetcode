@@ -18,9 +18,6 @@ class Solution {
         }
 
         int[] result = new int[nums.length];
-        for (int i = 0; i < result.length; i++) {
-            result[i] = -1;
-        }
         result[0] = nums[0];
         result[1] = Math.max(nums[0], nums[1]);
 

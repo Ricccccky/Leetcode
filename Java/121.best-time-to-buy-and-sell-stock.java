@@ -10,15 +10,23 @@ class Solution {
         if (prices.length == 0) {
             return 0;
         }
-        int max = 0;
-        int min = prices[0];
-        for (int i = 1; i < prices.length; i++) {
-            if (prices[i] < min) {
-                min = prices[i];
-            }
-            max = Math.max(max, prices[i] - min);
+        int hold = -prices[0];
+        int no_hold = 0;
+        for (int price : prices) {
+            hold = Math.max(hold, -price);
+            no_hold = Math.max(no_hold, hold + price);
         }
-        return max;
+        return no_hold;
+        
+        // int max = 0;
+        // int min = prices[0];
+        // for (int i = 1; i < prices.length; i++) {
+        //     if (prices[i] < min) {
+        //         min = prices[i];
+        //     }
+        //     max = Math.max(max, prices[i] - min);
+        // }
+        // return max;
     }
 }
 // @lc code=end

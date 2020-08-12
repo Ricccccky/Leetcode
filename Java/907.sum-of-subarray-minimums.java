@@ -14,21 +14,23 @@ class Solution {
         int[] right = new int[A.length];
         Stack<int[]> leftStack = new Stack<>();
         Stack<int[]> rightStack = new Stack<>();
+        // Dist from previous less number
         for (int i = 0; i < A.length; i++) {
             int len = 1;
-            while (!leftStack.isEmpty() && leftStack.peek()[0] > A[i]) {
+            while (!leftStack.isEmpty() && leftStack.peek()[0] >= A[i]) {
                 len += leftStack.pop()[1];
             }
             left[i] = len;
             leftStack.push(new int[] {A[i], len});
-
-            len = 1;
-            int index = A.length - i - 1;
-            while (!rightStack.isEmpty() && rightStack.peek()[0] >= A[index]) {
+        }
+        // Dist from next less number
+        for (int i = A.length - 1; i >= 0 ; i--) {
+            int len = 1;
+            while (!rightStack.isEmpty() && rightStack.peek()[0] > A[i]) {
                 len += rightStack.pop()[1];
             }
-            right[index] = len;
-            rightStack.push(new int[] {A[index], right[index]});
+            right[i] = len;
+            rightStack.push(new int[] {A[i], len});
         }
         for (int i = 0; i < A.length; i++) {
             result += A[i] * (left[i] * right[i]);

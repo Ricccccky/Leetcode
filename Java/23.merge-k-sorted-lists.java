@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /*
  * @lc app=leetcode id=23 lang=java
  *
@@ -17,19 +15,20 @@ import java.util.Arrays;
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        if (lists.length == 0) {
+        return mergeKLists(lists, 0, lists.length);
+    }
+
+    private ListNode mergeKLists(ListNode[] lists, int start, int end) {
+        if (start >= end) {
             return null;
-        }
-        else if (lists.length == 1) {
-            return lists[0];
-        }
-        else if (lists.length == 2) {
-            return merge2Lists(lists[0], lists[1]);
-        }
-        else {
-            int mid = lists.length / 2;
-            ListNode pre = mergeKLists(Arrays.copyOf(lists, mid));
-            ListNode lat = mergeKLists(Arrays.copyOfRange(lists, mid, lists.length));
+        } else if (end - start == 1) {
+            return lists[start];
+        } else if (end - start == 2) {
+            return merge2Lists(lists[start], lists[start + 1]);
+        } else {
+            int mid = (start + end) / 2;
+            ListNode pre = mergeKLists(lists, start, mid);
+            ListNode lat = mergeKLists(lists, mid, end);
             return merge2Lists(pre, lat);
         }
     }

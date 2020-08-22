@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 // @lc code=start
 class Solution {
     public int findKthLargest(int[] nums, int k) {
-        return quickSelect(nums, 0, nums.length - 1, k);
+        return findKthLargest(nums, 0, nums.length - 1, k);
     }
 
-    private int quickSelect(int[] nums, int begin, int end, int k) {
+    private int findKthLargest(int[] nums, int begin, int end, int k) {
         int left = begin;
         int right = begin;
         int pivot = nums[end];
@@ -31,9 +31,9 @@ class Solution {
             if (left - begin == k - 1) {
                 return pivot;
             } else if (left - begin > k - 1) {
-                return quickSelect(nums, begin, left - 1, k);
+                return findKthLargest(nums, begin, left - 1, k);
             } else {
-                return quickSelect(nums, left + 1, end, k - left + begin - 1);
+                return findKthLargest(nums, left + 1, end, k - left + begin - 1);
             }
         } else {
             return pivot;

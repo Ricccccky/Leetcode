@@ -47,9 +47,14 @@ class Solution {
                 return Integer.compare(this.x, o.x);
             }
             if (this.y != o.y) {
-                return Integer.compare(this.y, o.y);
+                return -Integer.compare(this.y, o.y);
             }
             return Integer.compare(this.val, o.val);
+        }
+
+        @Override
+        public String toString() {
+            return x + "," + y + ":" + val;
         }
     }
 
@@ -77,8 +82,8 @@ class Solution {
             return;
         }
         coordinates.add(new Coordinate(x, y, root.val));
-        dfs(root.left, coordinates, x - 1, y + 1);
-        dfs(root.right, coordinates, x + 1, y + 1);
+        dfs(root.left, coordinates, x - 1, y - 1);
+        dfs(root.right, coordinates, x + 1, y - 1);
     }
 }
 // @lc code=end

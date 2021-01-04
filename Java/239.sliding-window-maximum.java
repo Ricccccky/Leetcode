@@ -20,6 +20,8 @@ class Solution {
             }
             if ((nums.length - i - 1) % k != 0) {
                 right[nums.length - i - 1] = Math.max(nums[nums.length - i - 1], right[nums.length - i]);
+            } else {
+                right[nums.length - i - 1] = nums[nums.length - i - 1];
             }
         }
         int head = 0;

@@ -1,9 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.swing.tree.TreeNode;
 
 /*
  * @lc app=leetcode id=95 lang=java
@@ -31,14 +27,14 @@ class Solution {
             return dp[n];
         }
         dp[0].add(null);
-        for (int len = 1; len <= n; len++) {
-            for (int i = 0; i < len; i++) {
-                for (TreeNode leftNode : dp[i]) {
-                    for (TreeNode rightNode : dp[len - i - 1]) {
-                        TreeNode root = new TreeNode(i + 1);
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j < i; j++) {
+                for (TreeNode leftNode : dp[j]) {
+                    for (TreeNode rightNode : dp[i - j - 1]) {
+                        TreeNode root = new TreeNode(j + 1);
                         root.left = leftNode;
-                        root.right = increase(rightNode, i + 1);
-                        dp[len].add(root);
+                        root.right = increase(rightNode, j + 1);
+                        dp[i].add(root);
                     }
                 }
             }

@@ -35,7 +35,7 @@ class Solution {
             return;
         }
         inorder(root.left);
-        if (pre != null && pre.val > root.val) {
+        if (pre != null && pre.val >= root.val) {
             if (e1 == null) {
                 e1 = pre;
             }

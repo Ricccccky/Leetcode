@@ -10,10 +10,8 @@ class Solution {
         int[] arr = new int[nums.length + 2];
         int n = 1;
         for (int num : nums) {
-            if (num > 0) {
-                arr[n] = num;
-                n++;
-            }
+            arr[n] = num;
+            n++;
         }
         arr[0] = arr[n++] = 1;
         int[][] dp = new int[n][n];

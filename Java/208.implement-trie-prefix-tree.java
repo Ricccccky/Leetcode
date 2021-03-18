@@ -35,11 +35,11 @@ class Trie {
                 return false;
             }
         }
-        if (root.word != null && root.word.equals(word)) {
-            return true;
-        } else {
+        if (root.word == null) {
             return false;
         }
+
+        return true;
     }
     
     /** Returns if there is any word in the trie that starts with the given prefix. */

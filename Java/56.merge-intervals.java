@@ -11,9 +11,6 @@ import java.util.List;
 // @lc code=start
 class Solution {
     public int[][] merge(int[][] intervals) {
-        if (intervals == null || intervals.length == 0) {
-            return new int[0][0];
-        }
         Arrays.sort(intervals, (i1, i2) -> Integer.compare(i1[0], i2[0]));
         List<int[]> result = new ArrayList<>();
         int[] cur = intervals[0];

@@ -19,7 +19,7 @@ class Solution {
         for (int i = 0; i < n; i++) {
             pairs[i] = new int[] {quality[i], wage[i]};
         }
-        // Asending order
+        // Asending order, guarantee paid
         Arrays.sort(pairs, (w1, w2) -> Double.compare((double)w1[1] / w1[0], (double)w2[1] / w2[0]));
         for (int[] pair : pairs) {
             if (queue.size() == K) {

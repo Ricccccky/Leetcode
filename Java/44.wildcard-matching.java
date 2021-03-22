@@ -23,6 +23,7 @@ class Solution {
                     dp[i + 1][j + 1] = dp[i][j];
                 }
                 if (p.charAt(j) == '*') {
+                    // dp[i + 1][j] not count *; dp[i][j + 1] count *, * match s.charAt(i)
                     dp[i + 1][j + 1] = dp[i + 1][j] || dp[i][j + 1];
                 }
             }

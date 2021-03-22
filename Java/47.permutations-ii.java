@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /*
  * @lc app=leetcode id=47 lang=java
@@ -14,9 +12,6 @@ import java.util.Set;
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
-        if (nums == null || nums.length == 0) {
-            return new ArrayList<>();
-        }
         boolean[] used = new boolean[nums.length];
         Arrays.sort(nums);
         backtracking(nums, result, new ArrayList<>(), used);
@@ -40,7 +35,6 @@ class Solution {
                 temp.remove(temp.size() - 1);
             }
         }
-        return;
     }
 }
 // @lc code=end

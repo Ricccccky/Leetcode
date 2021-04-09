@@ -1,5 +1,4 @@
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.Random;
 
 /*
  * @lc app=leetcode id=215 lang=java
@@ -14,30 +13,34 @@ class Solution {
     }
 
     private int findKthLargest(int[] nums, int begin, int end, int k) {
+        if (begin == end) {
+            return nums[end];
+        }
+        Random rand = new Random();
         int left = begin;
         int right = begin;
+        swap(nums, rand.nextInt(end - begin) + begin, end);
         int pivot = nums[end];
-        if (begin < end) {
-            for (; right < end; right++) {
-                if (nums[right] > pivot) {
-                    int temp = nums[right];
-                    nums[right] = nums[left];
-                    nums[left] = temp;
-                    left++;
-                }
+        for (; right < end; right++) {
+            if (nums[right] > pivot) {
+                swap(nums, left++, right);
             }
-            nums[right] = nums[left];
-            nums[left] = pivot;
-            if (left - begin == k - 1) {
-                return pivot;
-            } else if (left - begin > k - 1) {
-                return findKthLargest(nums, begin, left - 1, k);
-            } else {
-                return findKthLargest(nums, left + 1, end, k - left + begin - 1);
-            }
-        } else {
-            return pivot;
         }
+        nums[right] = nums[left];
+        nums[left] = pivot;
+        if (left - begin == k - 1) {
+            return pivot;
+        } else if (left - begin > k - 1) {
+            return findKthLargest(nums, begin, left - 1, k);
+        } else {
+            return findKthLargest(nums, left + 1, end, k - left + begin - 1);
+        }
+    }
+
+    private void swap(int[] nums, int x, int y) {
+        int tmp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = tmp;
     }
 }
 // @lc code=end

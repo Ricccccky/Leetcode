@@ -15,8 +15,10 @@ class Solution {
         for (int i = 0; i < s.length(); i++) {
             for (int j = 0; j < t.length(); j++) {
                 if (s.charAt(i) == t.charAt(j)) {
+                    // Add s.charAt(i) and not add s.charAt(i)
                     dp[i + 1][j + 1] = dp[i][j] + dp[i][j + 1];
                 } else {
+                    // Not add s.charAt(i)
                     dp[i + 1][j + 1] = dp[i][j + 1];
                 }
             }

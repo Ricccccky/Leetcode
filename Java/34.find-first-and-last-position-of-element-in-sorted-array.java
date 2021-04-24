@@ -8,10 +8,7 @@
 // @lc code=start
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        if (nums == null || nums.length == 0) {
-            return new int[] {-1, -1};
-        }
-        int[] result = new int[2];
+        int[] result = new int[] {-1, -1};
         int left = 0;
         int right = nums.length;
         while (left < right) {
@@ -25,8 +22,6 @@ class Solution {
         if (left < nums.length && nums[left] == target) {
             result[0] = left;
         } else {
-            result[0] = -1;
-            result[1] = -1;
             return result;
         }
 
@@ -40,11 +35,8 @@ class Solution {
                 right = mid;
             }
         }
-        if (nums[left - 1] == target) {
-            result[1] = left - 1;
-        } else {
-            result[1] = -1;
-        }
+        result[1] = left - 1;
+
         return result;
     }
 }

@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 /*
  * @lc app=leetcode id=154 lang=java
@@ -13,18 +12,29 @@ class Solution {
         int mid;
         while (low < high) {
             mid = (low + high) / 2;
-            if (nums[low] <= nums[mid]) {
-                if (nums[mid] > nums[high]) {
-                    low = mid + 1;
+            if (nums[mid] < nums[high]) {
+                high = mid;
+            } else if (nums[mid] > nums[high]) {
+                low = mid + 1;
+            } else {
+                if (nums[mid] < nums[low]) {
+                    high = mid;
                 } else {
                     high--;
                 }
-            } else {
-                if (nums[mid] <= nums[high]) {
-                    high = mid;
-                }
             }
+            
+            // if (nums[low] <= nums[mid]) {
+            //     if (nums[mid] > nums[high]) {
+            //         low = mid + 1;
+            //     } else {
+            //         high--;
+            //     }
+            // } else {
+            //     high = mid;
+            // }
         }
+
         return nums[low];
     }
 }

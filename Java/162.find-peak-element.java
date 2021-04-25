@@ -7,7 +7,9 @@
 // @lc code=start
 class Solution {
     public int findPeakElement(int[] nums) {
-        int lo = 0, hi = nums.length - 1;
+        int lo = 0;
+        // Search space is [0, len - 1), because mid will compare with mid + 1
+        int hi = nums.length - 1;
         while (lo < hi) {
             int mid = lo + (hi - lo) / 2;
             if (nums[mid] > nums[mid + 1]) {

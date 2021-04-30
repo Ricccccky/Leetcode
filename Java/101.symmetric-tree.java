@@ -1,4 +1,5 @@
-import java.util.Stack;
+import java.util.Deque;
+import java.util.LinkedList;
 
 /*
  * @lc app=leetcode id=101 lang=java
@@ -18,29 +19,23 @@ import java.util.Stack;
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        if (root == null) {
-            return true;
-        }
-        TreeNode leftNode = null;
-        TreeNode rightNode = null;
-        Stack<TreeNode> temp = new Stack<>();
-        temp.push(root.left);
-        temp.push(root.right);
-        
-        while (!temp.isEmpty()) {
-            rightNode = temp.pop();
-            leftNode = temp.pop();
-
-            if (leftNode == null && rightNode == null) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        stack.push(root.left);
+        stack.push(root.right);
+        while (!stack.isEmpty()) {
+            TreeNode r = stack.pop();
+            TreeNode l = stack.pop();
+            if (l == null && r == null) {
                 continue;
-            } else if ((leftNode == null || rightNode == null) || leftNode.val != rightNode.val){
+            } else if (l == null || r == null || l.val != r.val) {
                 return false;
             }
-            temp.push(leftNode.left);
-            temp.push(rightNode.right);
-            temp.push(leftNode.right);
-            temp.push(rightNode.left);
+            stack.push(l.left);
+            stack.push(r.right);
+            stack.push(l.right);
+            stack.push(r.left);
         }
+
         return true;
     }
 }

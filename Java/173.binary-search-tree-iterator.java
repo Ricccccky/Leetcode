@@ -1,6 +1,5 @@
-import java.util.Stack;
-
-import javax.swing.tree.TreeNode;
+import java.util.Deque;
+import java.util.LinkedList;
 
 /*
  * @lc app=leetcode id=173 lang=java
@@ -25,33 +24,32 @@ import javax.swing.tree.TreeNode;
  * }
  */
 class BSTIterator {
-    Stack<TreeNode> temp;
+    private Deque<TreeNode> stack;
     public BSTIterator(TreeNode root) {
-        temp = new Stack<>();
+        stack = new LinkedList<>();
         while (root != null) {
-            temp.push(root);
+            stack.push(root);
             root = root.left;
         }
     }
     
-    /** @return the next smallest number */
     public int next() {
-        TreeNode top = temp.pop();
-        int result = top.val;
-        top = top.right;
-        while (top != null) {
-            temp.push(top);
-            top = top.left;
+        TreeNode root = stack.pop();
+        int res = root.val;
+        root = root.right;
+        while (root != null) {
+            stack.push(root);
+            root = root.left;
         }
-        return result;
+        
+        return res;
     }
     
-    /** @return whether we have a next smallest number */
     public boolean hasNext() {
-        if (!temp.isEmpty()) {
-            return true;
-        } else {
+        if (stack.isEmpty()) {
             return false;
+        } else {
+            return true;
         }
     }
 }

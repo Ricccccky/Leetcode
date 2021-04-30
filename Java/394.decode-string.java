@@ -1,4 +1,6 @@
-import java.util.Stack;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /*
  * @lc app=leetcode id=394 lang=java
@@ -9,35 +11,66 @@ import java.util.Stack;
 // @lc code=start
 class Solution {
     public String decodeString(String s) {
-        String result = "";
-        Stack<Integer> nums = new Stack<>();
-        Stack<String> strings = new Stack<>();
-        for (int i = 0; i < s.length(); i++) {
-            if (Character.isDigit(s.charAt(i))) {
-                int num = 0;
-                while (Character.isDigit(s.charAt(i))) {
-                    num *= 10;
-                    num += s.charAt(i) - '0';
-                    i++;
+        // Iterative
+        // String result = "";
+        // Deque<Integer> count = new LinkedList<>();
+        // Deque<String> stack = new LinkedList<>();
+        // char[] arr = s.toCharArray();
+        // for (int i = 0; i < arr.length; i++) {
+        //     if (Character.isDigit(arr[i])) {
+        //         int num = 0;
+        //         while (Character.isDigit(arr[i])) {
+        //             num = num * 10 + arr[i++] - '0';
+        //         }
+        //         count.push(num);
+        //         i--;
+        //     } else if (arr[i] == '[') {
+        //         stack.push(result);
+        //         result = "";
+        //     } else if (arr[i] == ']') {
+        //         StringBuilder sb = new StringBuilder(stack.pop());
+        //         int num = count.pop();
+        //         while (num-- > 0) {
+        //             sb.append(result);
+        //         }
+        //         result = sb.toString();
+        //     } else {
+        //         result += String.valueOf(arr[i]);
+        //     }
+        // }
+
+        // return result;
+
+        // Recursive
+        Queue<Character> queue = new LinkedList<>();
+        for (char c : s.toCharArray()) {
+            queue.offer(c);
+        }
+
+        return decodeString(queue);
+    }
+
+    private String decodeString(Queue<Character> queue) {
+        StringBuilder sb = new StringBuilder();
+        int num = 0;
+        while (!queue.isEmpty()) {
+            char c = queue.poll();
+            if (Character.isDigit(c)) {
+                num = num * 10 + c - '0';
+            } else if (c == '[') {
+                String tmp = decodeString(queue);
+                while (num > 0) {
+                    sb.append(tmp);
+                    num--;
                 }
-                i--;
-                nums.push(num);
-            } else if (s.charAt(i) == '[') {
-                strings.push(result);
-                result = "";
-            } else if (s.charAt(i) == ']') {
-                StringBuilder temp = new StringBuilder(strings.pop());
-                int num = nums.pop();
-                for (int j = 0; j < num; j++) {
-                    temp.append(result);
-                }
-                result = temp.toString();
+            } else if (c == ']') {
+                break;
             } else {
-                result += s.charAt(i);
+                sb.append(c);
             }
         }
 
-        return result;
+        return sb.toString();
     }
 }
 // @lc code=end

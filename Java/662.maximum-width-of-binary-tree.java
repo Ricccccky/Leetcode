@@ -1,6 +1,8 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
+import javax.swing.tree.TreeNode;
+
 /*
  * @lc app=leetcode id=662 lang=java
  *
@@ -28,38 +30,31 @@ class Solution {
         if (root == null) {
             return 0;
         }
-        int result = 1;
-        int len = 0;
-        int curIndex, leftIndex, rightIndex;
-        Queue<TreeNode> temp = new LinkedList<>();
-        Queue<Integer> nodeIndex = new LinkedList<>();
-        temp.offer(root);
-        nodeIndex.offer(1);
-        while (!temp.isEmpty()) {
-            len = temp.size();
-            leftIndex = Integer.MAX_VALUE;
-            rightIndex = 0;
-            for (int i = 0; i < len; i++) {
-                root = temp.poll();
-                curIndex = nodeIndex.poll();
+        int res = 1;
+        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<Integer> index = new LinkedList<>();
+        queue.offer(root);
+        index.offer(1);
+        while (!queue.isEmpty()) {
+            int len =queue.size();
+            int head = index.peek();
+            int tail = 0;
+            while (len-- > 0) {
+                root = queue.poll();
+                tail = index.poll();
                 if (root.left != null) {
-                    temp.offer(root.left);
-                    nodeIndex.offer(curIndex * 2);
-                    leftIndex = Math.min(curIndex * 2, leftIndex);
-                    rightIndex = Math.max(curIndex * 2, rightIndex);
+                    queue.offer(root.left);
+                    index.offer(tail * 2);
                 }
                 if (root.right != null) {
-                    temp.offer(root.right);
-                    nodeIndex.offer(curIndex * 2 + 1);
-                    leftIndex = Math.min(curIndex * 2 + 1, leftIndex);
-                    rightIndex = Math.max(curIndex * 2 + 1, rightIndex);
+                    queue.offer(root.right);
+                    index.offer(tail * 2 + 1);
                 }
             }
-            if (leftIndex != Integer.MAX_VALUE && rightIndex != 0) {
-                result = Math.max(result, rightIndex - leftIndex + 1);
-            }
+            res = Math.max(res, tail - head + 1);
         }
-        return result;
+
+        return res;
     }
 }
 // @lc code=end

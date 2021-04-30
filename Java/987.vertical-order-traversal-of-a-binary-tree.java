@@ -1,12 +1,6 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.TreeMap;
-
 /*
  * @lc app=leetcode id=987 lang=java
  *
@@ -31,59 +25,52 @@ import java.util.TreeMap;
  */
 class Solution {
     class Coordinate implements Comparable<Coordinate> {
-        public int x;
-        public int y;
-        public int val;
-        
-        public Coordinate(int x, int y, int val) {
-            this.x = x;
-            this.y = y;
+        int row;
+        int col;
+        int val;
+
+        public Coordinate(int row, int col, int val) {
+            this.row = row;
+            this.col = col;
             this.val = val;
         }
 
         @Override
         public int compareTo(Coordinate o) {
-            if (this.x != o.x) {
-                return Integer.compare(this.x, o.x);
-            }
-            if (this.y != o.y) {
-                return -Integer.compare(this.y, o.y);
-            }
-            return Integer.compare(this.val, o.val);
-        }
-
-        @Override
-        public String toString() {
-            return x + "," + y + ":" + val;
-        }
-    }
-
-    public List<List<Integer>> verticalTraversal(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
-        List<Coordinate> coordinates = new ArrayList<>();
-        dfs(root, coordinates, 0, 0);
-        Collections.sort(coordinates);
-        int cur = coordinates.get(0).x;
-        result.add(new ArrayList<>());
-        for (Coordinate loc : coordinates) {
-            if (loc.x == cur) {
-                result.get(result.size() - 1).add(loc.val);
+            if (this.col != o.col) {
+                return Integer.compare(this.col, o.col);
+            } else if (this.row != o.row) {
+                return Integer.compare(this.row, o.row);
             } else {
-                result.add(new ArrayList<>());
-                result.get(result.size() - 1).add(loc.val);
-                cur = loc.x;
+                return Integer.compare(this.val, o.val);
             }
         }
-        return result;
     }
-
-    private void dfs(TreeNode root, List<Coordinate> coordinates, int x, int y) {
+    
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Coordinate> list = new ArrayList<>();
+        dfs(list, 0, 0, root);
+        Collections.sort(list);
+        int prev = Integer.MIN_VALUE;
+        for (Coordinate c : list) {
+            if (c.col != prev) {
+                res.add(new ArrayList<>());
+                prev = c.col;
+            }
+            res.get(res.size() - 1).add(c.val);
+        }
+        
+        return res;
+    }
+    
+    private void dfs(List<Coordinate> list, int row, int col, TreeNode root) {
         if (root == null) {
             return;
         }
-        coordinates.add(new Coordinate(x, y, root.val));
-        dfs(root.left, coordinates, x - 1, y - 1);
-        dfs(root.right, coordinates, x + 1, y - 1);
+        list.add(new Coordinate(row, col, root.val));
+        dfs(list, row + 1, col - 1, root.left);
+        dfs(list, row + 1, col + 1, root.right);
     }
 }
 // @lc code=end

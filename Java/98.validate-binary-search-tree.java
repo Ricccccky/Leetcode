@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
 /*
  * @lc app=leetcode id=98 lang=java
@@ -20,24 +17,22 @@ import java.util.Stack;
  */
 class Solution {
     public boolean isValidBST(TreeNode root) {
-        if (root == null) {
-            return true;
-        }
-        Stack<TreeNode> temp = new Stack<>();
-        TreeNode pre = null;
-        while (root != null || !temp.isEmpty()) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        TreeNode prev = null;
+        while (!stack.isEmpty() || root != null) {
             if (root != null) {
-                temp.push(root);
+                stack.push(root);
                 root = root.left;
             } else {
-                root = temp.pop();
-                if (pre != null && pre.val >= root.val) {
+                root = stack.pop();
+                if (prev != null && prev.val >= root.val) {
                     return false;
                 }
-                pre = root;
+                prev = root;
                 root = root.right;
             }
         }
+        
         return true;
     }
 }

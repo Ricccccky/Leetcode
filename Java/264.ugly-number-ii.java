@@ -7,9 +7,6 @@
 // @lc code=start
 class Solution {
     public int nthUglyNumber(int n) {
-        if (n == 1) {
-            return 1;
-        }
         int[] dp = new int[n + 1];
         dp[1] = 1;
         int p2 = 1, p3 = 1, p5 = 1;

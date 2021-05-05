@@ -1,7 +1,6 @@
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.Deque;
+import java.util.LinkedList;
 
 /*
  * @lc app=leetcode id=503 lang=java
@@ -12,15 +11,17 @@ import java.util.Stack;
 // @lc code=start
 class Solution {
     public int[] nextGreaterElements(int[] nums) {
-        int[] result = new int[nums.length];
+        int n = nums.length;
+        int[] result = new int[n];
         Arrays.fill(result, -1);
-        Stack<Integer> stack = new Stack<>();
-        for (int i = 0; i < nums.length * 2; i++) {
-            while (!stack.isEmpty() && nums[stack.peek()] < nums[i % nums.length]) {
-                result[stack.pop()] = nums[i % nums.length];
+        Deque<Integer> stack = new LinkedList<>();
+        for (int i = 0; i < n * 2; i++) {
+            while (!stack.isEmpty() && nums[i % n] > nums[stack.peek()]) {
+                result[stack.pop()] = nums[i % n];
             }
-            stack.push(i % nums.length);
+            stack.push(i % n);
         }
+        
         return result;
     }
 }

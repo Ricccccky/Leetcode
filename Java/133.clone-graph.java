@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 
 import org.w3c.dom.Node;
@@ -39,24 +41,22 @@ class Solution {
         if (node == null) {
             return null;
         }
-        Node root = new Node(node.val);
-        HashMap<Integer, Node> temp = new HashMap<>();
-        temp.put(root.val, root);
         Queue<Node> queue = new LinkedList<>();
-        Node top = null;
+        Map<Node, Node> map = new HashMap<>();
+        map.put(node, new Node(node.val, new ArrayList<>()));
         queue.offer(node);
         while (!queue.isEmpty()) {
-            top = queue.poll();
-            for (Node k : top.neighbors) {
-                if (!temp.containsKey(k.val)) {
-                    Node newNode = new Node(k.val);
-                    temp.put(k.val, newNode);
-                    queue.offer(k);
+            Node cur = queue.poll();
+            for (Node neighbor : cur.neighbors) {
+                if (!map.containsKey(neighbor)) {
+                    queue.offer(neighbor);
+                    map.put(neighbor, new Node(neighbor.val, new ArrayList<>()));
                 }
-                temp.get(top.val).neighbors.add(temp.get(k.val));
+                map.get(cur).neighbors.add(map.get(neighbor));
             }
         }
-        return root;
+
+        return map.get(node);
     }
 }
 // @lc code=end

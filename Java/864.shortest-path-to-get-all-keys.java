@@ -38,7 +38,7 @@ class Solution {
                     if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length()) {
                         char c = grid[x].charAt(y);
                         int key = cur[2];
-                        if (c == '#' || (Character.isUpperCase(c) && (key & ((1 << (c - 'A')))) == 0)) {
+                        if (c == '#' || (Character.isUpperCase(c) && (key & (1 << (c - 'A'))) == 0)) {
                             continue;
                         } else if (Character.isLowerCase(c)) {
                             key |= 1 << (c - 'a');

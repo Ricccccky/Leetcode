@@ -1,4 +1,3 @@
-import org.graalvm.compiler.lir.LIRInstruction.Temp;
 
 /*
  * @lc app=leetcode id=75 lang=java
@@ -31,21 +30,23 @@ class Solution {
         int p1 = 0;
         int p2 = nums.length - 1;
         while (p1 <= p2) {
-            if (nums[p1] == 1) {
-                p1++;
-            } else if (nums[p1] == 2) {
-                int temp = nums[p1];
-                nums[p1] = nums[p2];
-                nums[p2] = temp;
-                p2--;
-            } else if (nums[p1] == 0) {
+            if (nums[p1] == 0) {
                 p0++;
-                int temp = nums[p1];
-                nums[p1] = nums[p0];
-                nums[p0] = temp;
+                swap(nums, p0, p1);
                 p1++;
+            } else if (nums[p1] == 1) {
+                p1++;
+            } else {
+                swap(nums, p1, p2);
+                p2--;
             }
         }
+    }
+
+    private void swap(int[] nums, int x, int y) {
+        int tmp = nums[x];
+        nums[x] = nums[y];
+        nums[y] = tmp;
     }
 }
 // @lc code=end

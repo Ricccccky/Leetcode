@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=451 lang=java
@@ -13,22 +10,21 @@ import java.util.Map;
 class Solution {
     public String frequencySort(String s) {
         Map<Character, Integer> map = new HashMap<>();
+        List<Character>[] buckets = new ArrayList[s.length() + 1];
         StringBuilder sb = new StringBuilder();
         for (char c : s.toCharArray()) {
             map.put(c, map.getOrDefault(c, 0) + 1);
         }
-        List<Character>[] bucket = new List[s.length() + 1];
-        for (char c : map.keySet()) {
-            int freq = map.get(c);
-            if (bucket[freq] == null) {
-                bucket[freq] = new ArrayList<>();
+        for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+            if (buckets[entry.getValue()] == null) {
+                buckets[entry.getValue()] = new ArrayList<>();
             }
-            bucket[freq].add(c);
+            buckets[entry.getValue()].add(entry.getKey());
         }
-        for (int freq = bucket.length - 1; freq > 0; freq--) {
-            if (bucket[freq] != null) {
-                for (char c : bucket[freq]) {
-                    for (int i = 0; i < freq; i++) {
+        for (int i = buckets.length - 1; i > 0; i--) {
+            if (buckets[i] != null) {
+                for (char c : buckets[i]) {
+                    for (int j = 0; j < i; j++) {
                         sb.append(c);
                     }
                 }

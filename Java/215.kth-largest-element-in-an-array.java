@@ -1,4 +1,4 @@
-import java.util.Random;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=215 lang=java
@@ -9,7 +9,19 @@ import java.util.Random;
 // @lc code=start
 class Solution {
     public int findKthLargest(int[] nums, int k) {
+        // Quick select O(N)
         return findKthLargest(nums, 0, nums.length - 1, k);
+
+        // Heap implement O(NlogK)
+        // Queue<Integer> heap = new PriorityBlockingQueue<>();
+        // for (int num : nums) {
+        //     heap.add(num);
+        //     if (heap.size() > k) {
+        //         heap.poll();
+        //     }
+        // }
+
+        // return heap.peek();
     }
 
     private int findKthLargest(int[] nums, int begin, int end, int k) {

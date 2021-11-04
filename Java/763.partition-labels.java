@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=763 lang=java
@@ -10,20 +9,22 @@ import java.util.List;
 // @lc code=start
 class Solution {
     public List<Integer> partitionLabels(String S) {
-        List<Integer> result = new ArrayList<>();
-        int[] index = new int[26];
+        List<Integer> res = new ArrayList<>();
+        int[] pos = new int[26];
         for (int i = 0; i < S.length(); i++) {
-            index[S.charAt(i) - 'a'] = i;
+            pos[S.charAt(i) - 'a'] = i;
         }
-        int p1 = 0, p2 = 0;
+        int ptr = 0;
+        int start = 0;
         for (int i = 0; i < S.length(); i++) {
-            p2 = Math.max(p2, index[S.charAt(i) - 'a']);
-            if (i == p2) {
-                result.add(p2 - p1 + 1);
-                p1 = i + 1;
+            ptr = Math.max(ptr, pos[S.charAt(i) - 'a']);
+            if (ptr == i) {
+                res.add(ptr - start + 1);
+                start = ptr + 1;
             }
         }
-        return result;
+
+        return res;
     }
 }
 // @lc code=end

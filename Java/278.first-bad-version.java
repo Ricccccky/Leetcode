@@ -1,5 +1,3 @@
-import sun.util.logging.resources.logging;
-
 /*
  * @lc app=leetcode id=278 lang=java
  *
@@ -12,18 +10,18 @@ import sun.util.logging.resources.logging;
 
 public class Solution extends VersionControl {
     public int firstBadVersion(int n) {
-        int left = 1;
-        int right = n;
-        int mid;
-        while (left < right) {
-            mid = left / 2 + right / 2;
+        int l = 1;
+        int r = n;
+        while (l < r) {
+            int mid = (r - l) / 2 + l;
             if (isBadVersion(mid)) {
-                right = mid;
+                r = mid;
             } else {
-                left = mid + 1;
+                l = mid + 1;
             }
         }
-        return left;
+
+        return r;
     }
 }
 // @lc code=end

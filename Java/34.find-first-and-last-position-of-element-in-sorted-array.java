@@ -8,36 +8,28 @@
 // @lc code=start
 class Solution {
     public int[] searchRange(int[] nums, int target) {
-        int[] result = new int[] {-1, -1};
-        int left = 0;
-        int right = nums.length;
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-            if (target <= nums[mid]) {
-                right = mid;
-            } else {
-                left = mid + 1;
-            }
-        }
-        if (left < nums.length && nums[left] == target) {
-            result[0] = left;
+        int first = searchPosition(nums, target);
+        int last = searchPosition(nums, target + 1) - 1;
+        if (first == nums.length || nums[first] != target) {
+            return new int[] {-1, -1};
         } else {
-            return result;
+            return new int[] {first, last};
         }
+    }
 
-        left = 0;
-        right = nums.length;
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-            if (target >= nums[mid]) {
-                left = mid + 1;
+    public int searchPosition(int[] nums, int target) {
+        int l = 0;
+        int r = nums.length;
+        while (l < r) {
+            int mid = (r - l) / 2 + l;
+            if (nums[mid] < target) {
+                l = mid + 1;
             } else {
-                right = mid;
+                r = mid;
             }
         }
-        result[1] = left - 1;
 
-        return result;
+        return l;
     }
 }
 // @lc code=end

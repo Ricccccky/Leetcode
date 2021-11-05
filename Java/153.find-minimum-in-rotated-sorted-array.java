@@ -7,17 +7,18 @@
 // @lc code=start
 class Solution {
     public int findMin(int[] nums) {
-        int low = 0, high = nums.length - 1;
-        int mid;
-        while (low < high) {
-            mid = (low + high) / 2;
-            if (nums[mid] > nums[high]) {
-                low = mid + 1;
+        int l = 0;
+        int r = nums.length - 1;
+        while (l < r) {
+            int mid = (r - l) / 2 + l;
+            if (nums[mid] > nums[r]) {
+                l = mid + 1;
             } else {
-                high = mid;
+                r = mid;
             }
         }
-        return nums[low];
+
+        return nums[l];
     }
 }
 // @lc code=end

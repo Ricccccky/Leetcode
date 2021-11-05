@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 /*
  * @lc app=leetcode id=744 lang=java
@@ -10,17 +9,17 @@ import java.util.Arrays;
 class Solution {
     public char nextGreatestLetter(char[] letters, char target) {
         int lo = 0;
-        int hi = letters.length;
-        while (lo < hi) {
-            int mid = lo + (hi - lo) / 2;
+        int hi = letters.length - 1;
+        while (lo <= hi) {
+            int mid = (hi - lo) / 2 + lo;
             if (letters[mid] > target) {
-                hi = mid;
-            } else if (letters[mid] <= target) {
+                hi = mid - 1;
+            } else {
                 lo = mid + 1;
             }
         }
 
-        return letters[lo % letters.length];
+        return lo == letters.length ? letters[0] : letters[lo];
     }
 }
 // @lc code=end

@@ -1,5 +1,6 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import javax.swing.tree.TreeNode;
 
 /*
  * @lc app=leetcode id=95 lang=java
@@ -19,27 +20,54 @@ import java.util.List;
  */
 class Solution {
     public List<TreeNode> generateTrees(int n) {
-        List<TreeNode>[] dp = new List[n + 1];
-        for (int i = 0; i <= n; i++) {
-            dp[i] = new ArrayList<>();
+        // DP
+        // List<TreeNode>[] dp = new List[n + 1];
+        // for (int i = 0; i <= n; i++) {
+        //     dp[i] = new ArrayList<>();
+        // }
+        // if (n == 0) {
+        //     return dp[n];
+        // }
+        // dp[0].add(null);
+        // for (int i = 1; i <= n; i++) {
+        //     for (int j = 0; j < i; j++) {
+        //         for (TreeNode leftNode : dp[j]) {
+        //             for (TreeNode rightNode : dp[i - j - 1]) {
+        //                 TreeNode root = new TreeNode(j + 1);
+        //                 root.left = leftNode;
+        //                 root.right = increase(rightNode, j + 1);
+        //                 dp[i].add(root);
+        //             }
+        //         }
+        //     }
+        // }
+
+        // return dp[n];
+
+        // Divide and conquer
+        return generateTrees(1, n);
+    }
+
+    public List<TreeNode> generateTrees(int start, int end) {
+        List<TreeNode> res = new ArrayList<>();
+        if (start > end) {
+            res.add(null);
+            return res;
         }
-        if (n == 0) {
-            return dp[n];
-        }
-        dp[0].add(null);
-        for (int i = 1; i <= n; i++) {
-            for (int j = 0; j < i; j++) {
-                for (TreeNode leftNode : dp[j]) {
-                    for (TreeNode rightNode : dp[i - j - 1]) {
-                        TreeNode root = new TreeNode(j + 1);
-                        root.left = leftNode;
-                        root.right = increase(rightNode, j + 1);
-                        dp[i].add(root);
-                    }
+        for (int i = start; i <= end; i++) {
+            List<TreeNode> left = generateTrees(start, i - 1);
+            List<TreeNode> right = generateTrees(i + 1, end);
+            for (TreeNode l : left) {
+                for (TreeNode r : right) {
+                    TreeNode root = new TreeNode(i);
+                    root.left = l;
+                    root.right = r;
+                    res.add(root);
                 }
             }
         }
-        return dp[n];
+
+        return res;
     }
 
     private TreeNode increase(TreeNode node, int increment) {
@@ -49,6 +77,7 @@ class Solution {
         TreeNode root = new TreeNode(node.val + increment);
         root.left = increase(node.left, increment);
         root.right = increase(node.right, increment);
+
         return root;
     }
 }

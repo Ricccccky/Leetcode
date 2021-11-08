@@ -1,5 +1,4 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=695 lang=java
@@ -10,6 +9,19 @@ import java.util.Queue;
 // @lc code=start
 class Solution {
     public int maxAreaOfIsland(int[][] grid) {
+        // Recursive
+        // int res = 0;
+        // int row = grid.length;
+        // int col = grid[0].length;
+        // for (int i = 0; i < row; i++) {
+        //     for (int j = 0; j < col; j++) {
+        //         res = Math.max(res, helper(grid, i, j));
+        //     }
+        // }
+        
+        // return res;
+
+        // Iterative
         int result = 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
@@ -46,7 +58,19 @@ class Solution {
                 }
             }
         }
+
         return result;
+    }
+
+    public int helper(int[][] grid, int x, int y) {
+        int row = grid.length;
+        int col = grid[0].length;
+        if (x < 0 || x >= row || y < 0 || y >= col || grid[x][y] == 0) {
+            return 0;
+        }
+        grid[x][y] = 0;
+
+        return 1 + helper(grid, x, y + 1) + helper(grid, x, y - 1) + helper(grid, x + 1, y) + helper(grid, x - 1, y);
     }
 }
 // @lc code=end

@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=17 lang=java
@@ -27,6 +23,7 @@ class Solution {
         dict.put('8', Arrays.asList("t", "u", "v"));
         dict.put('9', Arrays.asList("w", "x", "y", "z"));
         backtracking(digits, "", result);
+
         return result;
     }
 
@@ -39,6 +36,7 @@ class Solution {
         for (String letter : dict.get(current)) {
             backtracking(digits, temp + letter, result);
         }
+        
         return;
     }
 }

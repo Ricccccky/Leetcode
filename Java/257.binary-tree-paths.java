@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=257 lang=java
@@ -27,31 +24,31 @@ import java.util.Queue;
  */
 class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
-        List<String> result = new ArrayList<>();
-        if (root == null) {
-            return result;
+        List<String> res = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        Queue<StringBuilder> paths = new LinkedList<>();
+        queue.offer(root);
+        paths.offer(new StringBuilder("" + root.val));
+        while (!queue.isEmpty()) {
+            int len = queue.size();
+            while (len-- > 0) {
+                TreeNode node = queue.poll();
+                StringBuilder path = paths.poll();
+                if (node.left == null && node.right == null) {
+                    res.add(path.toString());
+                }
+                if (node.left != null) {
+                    queue.offer(node.left);
+                    paths.offer(new StringBuilder(path).append("->").append(node.left.val));
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                    paths.offer(new StringBuilder(path).append("->").append(node.right.val));
+                }
+            }
         }
-        Queue<TreeNode> nodes = new LinkedList<>();
-        Queue<String> paths = new LinkedList<>();
-        String path;
-        nodes.offer(root);
-        paths.offer("" + root.val);
-        while (!nodes.isEmpty()) {
-            root = nodes.poll();
-            path = paths.poll();
-            if (root.left == null && root.right == null) {
-                result.add(path);
-            }
-            if (root.left != null) {
-                nodes.offer(root.left);
-                paths.offer(path + "->" + root.left.val);
-            }
-            if (root.right != null) {
-                nodes.offer(root.right);
-                paths.offer(path + "->" + root.right.val);
-            }
-        }
-        return result;
+        
+        return res;
     }
 }
 // @lc code=end

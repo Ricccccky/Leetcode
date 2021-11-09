@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=47 lang=java
@@ -12,9 +10,9 @@ import java.util.List;
 class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
-        boolean[] used = new boolean[nums.length];
         Arrays.sort(nums);
-        backtracking(nums, result, new ArrayList<>(), used);
+        backtracking(nums, result, new ArrayList<>(), new boolean[nums.length]);
+
         return result;
     }
 

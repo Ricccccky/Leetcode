@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=39 lang=java
@@ -16,22 +12,22 @@ class Solution {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(candidates);
         backtracking(result, candidates, new ArrayList<>(), 0, target);
+
         return result;
     }
 
     private void backtracking(List<List<Integer>> result, int[] candidates, List<Integer> temp, int start, int remain) {
         if (remain == 0) {
-            result.add(temp);
+            result.add(new ArrayList<>(temp));
         } else if (remain < 0) {
             return;
         } else {
             for (int i = start; i < candidates.length; i++) {
                 temp.add(candidates[i]);
-                backtracking(result, candidates, new ArrayList<>(temp), i, remain - candidates[i]);
+                backtracking(result, candidates, temp, i, remain - candidates[i]);
                 temp.remove(temp.size() - 1);
             }
         }
-        return;
     }
 }
 // @lc code=end

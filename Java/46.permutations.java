@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=46 lang=java
@@ -12,6 +11,7 @@ class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         dfs(nums, result, new boolean[nums.length], new ArrayList<>());
+
         return result;
     }
 
@@ -30,6 +30,7 @@ class Solution {
                 temp.remove(temp.size() - 1);
             }
         }
+
         return;
     }
 }

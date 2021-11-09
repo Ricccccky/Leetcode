@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=93 lang=java
@@ -15,6 +14,7 @@ class Solution {
             return result;
         }
         dfs(result, s, 0, 0, "");
+        
         return result;
     }
 
@@ -28,7 +28,7 @@ class Solution {
                 break;
             }
             String section = s.substring(pos, pos + i);
-            if (section.startsWith("0") && section.length() > 1|| Integer.valueOf(section) > 255) {
+            if (section.startsWith("0") && section.length() > 1 || Integer.valueOf(section) > 255) {
                 break;
             }
             if (count == 0) {

@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=139 lang=java
@@ -9,17 +9,18 @@ import java.util.List;
 // @lc code=start
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
-        boolean[] result = new boolean[s.length() + 1];
-        result[0] = true;
-        for (int i = 1; i <= s.length(); i++) {
+        int m = s.length();
+        boolean[] dp = new boolean[m + 1];
+        dp[0] = true;
+        for (int i = 1; i <= m; i++) {
             for (int j = 0; j < i; j++) {
-                if (result[j] && wordDict.contains(s.substring(j, i))) {
-                    result[i] = true;
-                    break;
+                if (wordDict.contains(s.substring(j, i))) {
+                    dp[i] |= dp[j];
                 }
             }
         }
-        return result[s.length()];
+        
+        return dp[m];
     }
 }
 // @lc code=end

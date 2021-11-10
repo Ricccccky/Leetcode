@@ -17,6 +17,7 @@ class Solution {
             hold = Math.max(hold, no_hold - price);
             no_hold = Math.max(no_hold, temp + price - fee);
         }
+        
         return no_hold;
     }
 }

@@ -7,15 +7,13 @@
 // @lc code=start
 class Solution {
     public int maxProfit(int[] prices) {
-        if (prices.length == 0) {
-            return 0;
-        }
         int hold = -prices[0];
         int no_hold = 0;
         for (int price : prices) {
             hold = Math.max(hold, -price);
             no_hold = Math.max(no_hold, hold + price);
         }
+        
         return no_hold;
         
         // int max = 0;

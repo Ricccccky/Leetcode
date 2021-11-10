@@ -19,6 +19,7 @@ class Solution {
             pre_no_hold = no_hold;
             no_hold = Math.max(no_hold, temp + price);
         }
+        
         return no_hold;
 
         // int buy = Integer.MIN_VALUE;

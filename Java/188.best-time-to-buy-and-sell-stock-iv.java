@@ -1,5 +1,4 @@
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=188 lang=java
@@ -13,7 +12,7 @@ class Solution {
         if (prices.length == 0) {
             return 0;
         }
-
+        // Buy/sell infinite times
         if (k >= prices.length / 2) {
             int hold = -prices[0];
             int no_hold = 0;
@@ -30,10 +29,12 @@ class Solution {
         Arrays.fill(hold, -prices[0]);
         for (int price : prices) {
             for (int i = k; i > 0; i--) {
+                int temp = hold[i];
                 hold[i] = Math.max(hold[i], no_hold[i - 1] - price);
-                no_hold[i] = Math.max(no_hold[i], hold[i] + price);
+                no_hold[i] = Math.max(no_hold[i], temp + price);
             }
         }
+
         return no_hold[k];
     }
 }

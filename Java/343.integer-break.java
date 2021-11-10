@@ -14,6 +14,7 @@ class Solution {
                 dp[i] = Math.max(dp[i], Math.max(j, dp[j]) * Math.max(i - j, dp[i - j]));
             }
         }
+        
         return dp[n];
     }
 }

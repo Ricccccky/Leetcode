@@ -1,4 +1,4 @@
-import java.util.HashSet;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=160 lang=java
@@ -35,6 +35,7 @@ public class Solution {
                 p2 = p2.next;
             }
         }
+        
         return p1;
     }
 }

@@ -1,12 +1,11 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
+import java.util.*;
 /*
  * @lc app=leetcode id=144 lang=java
  *
  * [144] Binary Tree Preorder Traversal
  */
+
+import javax.swing.tree.TreeNode;
 
 // @lc code=start
 /**
@@ -27,20 +26,17 @@ import java.util.Stack;
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        Stack<TreeNode> temp = new Stack<>();
-        if (root == null) {
-            return result;
-        }
-
-        while (root != null || !temp.isEmpty()) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        while (root != null || !stack.isEmpty()) {
             if (root != null) {
                 result.add(root.val);
-                temp.push(root);
+                stack.addLast(root);
                 root = root.left;
             } else {
-                root = temp.pop().right;
+                root = stack.removeLast().right;
             }
         }
+
         return result;
     }
 }

@@ -1,4 +1,4 @@
-import java.util.Stack;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=530 lang=java
@@ -24,23 +24,24 @@ import java.util.Stack;
  */
 class Solution {
     public int getMinimumDifference(TreeNode root) {
-        Stack<TreeNode> temp = new Stack<>();
-        int result = Integer.MAX_VALUE;
-        TreeNode prev = null;
-        while (root != null || !temp.isEmpty()) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        TreeNode pre = null;
+        int res = Integer.MAX_VALUE;
+        while (root != null || !stack.isEmpty()) {
             if (root != null) {
-                temp.push(root);
+                stack.addLast(root);
                 root = root.left;
             } else {
-                root = temp.pop();
-                if (prev != null) {
-                    result = Math.min(result, root.val - prev.val);
+                root = stack.removeLast();
+                if (pre != null) {
+                    res = Math.min(res, Math.abs(pre.val - root.val));
                 }
-                prev = root;
+                pre = root;
                 root = root.right;
             }
         }
-        return result;
+
+        return res;
     }
 }
 // @lc code=end

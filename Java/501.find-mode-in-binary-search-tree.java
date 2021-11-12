@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=501 lang=java
@@ -58,6 +56,7 @@ class Solution {
                 root = root.right;
             }
         }
+        
         return modes.stream().mapToInt(Integer::valueOf).toArray();
     }
 }

@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
+
+import javax.swing.tree.TreeNode;
 
 /*
  * @lc app=leetcode id=145 lang=java
@@ -28,21 +27,18 @@ import java.util.Stack;
 class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        if (root == null) {
-            return result;
-        }
-
-        Stack<TreeNode> temp = new Stack<>();
-        while (root != null || !temp.isEmpty()) {
+        Deque<TreeNode> stack = new LinkedList<>();
+        while (root != null || !stack.isEmpty()) {
             if (root != null) {
-                temp.push(root);
+                stack.addLast(root);
                 result.add(root.val);
                 root = root.right;
             } else {
-                root = temp.pop().left;
+                root = stack.removeLast().left;
             }
         }
         Collections.reverse(result);
+
         return result;
     }
 }

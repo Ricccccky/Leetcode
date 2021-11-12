@@ -27,6 +27,7 @@ class Solution {
             return result[0];
         }
         dfs(root, result);
+        
         return result[0];
     }
 
@@ -50,6 +51,7 @@ class Solution {
             rightLength = 0;
         }
         result[0] = Math.max(result[0], leftLength + rightLength);
+
         return Math.max(leftLength, rightLength);
     }
 }

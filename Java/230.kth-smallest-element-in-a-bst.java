@@ -1,4 +1,6 @@
-import java.util.Stack;
+import java.util.*;
+
+import javax.swing.tree.TreeNode;
 
 /*
  * @lc app=leetcode id=230 lang=java
@@ -24,22 +26,23 @@ import java.util.Stack;
  */
 class Solution {
     public int kthSmallest(TreeNode root, int k) {
-        Stack<TreeNode> temp = new Stack<>();
-        int i = 1;
-        while (root != null || !temp.isEmpty()) {
+        int res = 0;
+        Deque<TreeNode> stack = new LinkedList<>();
+        while (root != null || !stack.isEmpty()) {
             if (root != null) {
-                temp.push(root);
+                stack.addLast(root);
                 root = root.left;
             } else {
-                root = temp.pop();
-                if (i == k) {
-                    return root.val;
+                root = stack.removeLast();
+                if (--k == 0) {
+                    res = root.val;
+                    break;
                 }
                 root = root.right;
-                i++;
             }
         }
-        return -1;
+
+        return res;
     }
 }
 // @lc code=end

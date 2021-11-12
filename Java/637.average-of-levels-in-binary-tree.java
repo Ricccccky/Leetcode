@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=637 lang=java
@@ -28,9 +25,6 @@ import java.util.Queue;
 class Solution {
     public List<Double> averageOfLevels(TreeNode root) {
         List<Double> result = new ArrayList<>();
-        if (root == null) {
-            return result;
-        }
         Queue<TreeNode> temp = new LinkedList<>();
         int len;
         temp.offer(root);
@@ -49,6 +43,7 @@ class Solution {
             }
             result.add((double)sum / len);
         }
+
         return result;
     }
 }

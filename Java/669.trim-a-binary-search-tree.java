@@ -33,6 +33,7 @@ class Solution {
         }
         root.left = trimBST(root.left, L, R);
         root.right = trimBST(root.right, L, R);
+        
         return root;
     }
 }

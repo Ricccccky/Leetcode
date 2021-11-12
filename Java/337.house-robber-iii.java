@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=337 lang=java
@@ -27,18 +24,28 @@ import java.util.Stack;
  */
 class Solution {
     public int rob(TreeNode root) {
+        Map<TreeNode, Integer> dp = new HashMap<>();
+        
+        return rob(root, dp);
+    }
+
+    private int rob(TreeNode root, Map<TreeNode, Integer> dp) {
         if (root == null) {
             return 0;
+        } else if (dp.containsKey(root)) {
+            return dp.get(root);
         }
-        int result = 0;
+        int robRoot = root.val;
         if (root.left != null) {
-            result += rob(root.left.left) + rob(root.left.right);
+            robRoot += rob(root.left.left, dp) + rob(root.left.right, dp);
         }
         if (root.right != null) {
-            result += rob(root.right.left) + rob(root.right.right);
+            robRoot += rob(root.right.left, dp) + rob(root.right.right, dp);
         }
+        int notRobRoot = rob(root.left, dp) + rob(root.right,dp);
+        dp.put(root, Math.max(notRobRoot, robRoot));
 
-        return Math.max(result + root.val, rob(root.left) + rob(root.right));
+        return Math.max(notRobRoot, robRoot);
     }
 }
 // @lc code=end

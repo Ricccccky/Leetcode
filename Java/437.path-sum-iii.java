@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=437 lang=java
@@ -26,6 +26,7 @@ class Solution {
     public int pathSum(TreeNode root, int sum) {
         HashMap<Integer, Integer> sumHist = new HashMap<>();
         sumHist.put(0, 1);
+
         return findPath(root, sumHist, 0, sum);
     }
 
@@ -40,6 +41,7 @@ class Solution {
         sumHist.put(curSum, sumHist.getOrDefault(curSum, 0) + 1);
         result += findPath(root.left, sumHist, curSum, sum) + findPath(root.right, sumHist, curSum, sum);
         sumHist.put(curSum, sumHist.get(curSum) - 1);
+        
         return result;
     }
 }

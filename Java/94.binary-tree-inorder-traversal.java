@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=94 lang=java
@@ -42,21 +39,17 @@ class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         Deque<TreeNode> stack = new LinkedList<>();
-        if (root == null) {
-            return result;
-        }
-
         while (root != null || !stack.isEmpty()) {
             if (root != null) {
                 stack.addFirst(root);
                 root = root.left;
             } else {
                 root = stack.removeFirst();
-                System.out.println(root.val);
                 result.add(root.val);
                 root = root.right;
             }
         }
+
         return result;
     }
 }

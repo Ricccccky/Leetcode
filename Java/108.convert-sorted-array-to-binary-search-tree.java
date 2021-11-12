@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=108 lang=java
@@ -25,6 +25,7 @@ class Solution {
         TreeNode root = new TreeNode(nums[mid]);
         root.left = sortedArrayToBST(Arrays.copyOf(nums, mid));
         root.right = sortedArrayToBST(Arrays.copyOfRange(nums, mid + 1, nums.length));
+        
         return root;
     }
 }

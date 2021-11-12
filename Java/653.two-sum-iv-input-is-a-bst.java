@@ -1,5 +1,6 @@
-import java.util.HashSet;
-import java.util.Stack;
+import java.util.*;
+
+import javax.swing.tree.TreeNode;
 
 /*
  * @lc app=leetcode id=653 lang=java
@@ -25,21 +26,57 @@ import java.util.Stack;
  */
 class Solution {
     public boolean findTarget(TreeNode root, int k) {
-        HashSet<Integer> result = new HashSet<>();
-        Stack<TreeNode> temp = new Stack<>();
-        while (root != null || !temp.isEmpty()) {
+        // Traverse, less space
+        Deque<TreeNode> stack = new LinkedList<>();
+        Set<Integer> set = new HashSet<>();
+        while (root != null || !stack.isEmpty()) {
             if (root != null) {
-                if (result.contains(k - root.val)) {
+                if (set.contains(k - root.val)) {
                     return true;
                 }
-                result.add(root.val);
-                temp.push(root);
+                set.add(root.val);
+                stack.addLast(root);
                 root = root.left;
             } else {
-                root = temp.pop().right;
+                root = stack.removeLast();
+                root = root.right;
             }
         }
+
         return false;
+
+        // Build sorted array + Two pointer
+        // List<Integer> list = buildArray(root);
+        // int p1 = 0;
+        // int p2 = list.size() - 1;
+        // while (p1 < p2) {
+        //     if (list.get(p1) + list.get(p2) == k) {
+        //         return true;
+        //     } else if (list.get(p1) + list.get(p2) > k) {
+        //         p2--;
+        //     } else {
+        //         p1++;
+        //     }
+        // }
+
+        // return false;
+    }
+
+    private List<Integer> buildArray(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        Deque<TreeNode> stack = new LinkedList<>();
+        while (root != null || !stack.isEmpty()) {
+            if (root != null) {
+                stack.addLast(root);
+                root = root.left;
+            } else {
+                root = stack.removeLast();
+                list.add(root.val);
+                root = root.right;
+            }
+        }
+
+        return list;
     }
 }
 // @lc code=end

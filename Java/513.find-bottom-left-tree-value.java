@@ -1,10 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
-import javax.naming.spi.DirStateFactory.Result;
-import javax.swing.tree.TreeNode;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=513 lang=java
@@ -30,25 +24,24 @@ import javax.swing.tree.TreeNode;
  */
 class Solution {
     public int findBottomLeftValue(TreeNode root) {
-        Queue<TreeNode> temp = new LinkedList<>();
-        temp.offer(root);
-        int len;
-        List<Integer> result = new ArrayList<>();
-        while (!temp.isEmpty()) {
-            result.clear();
-            len = temp.size();
-            for (int i = 0; i < len; i++) {
-                root = temp.poll();
-                result.add(root.val);
-                if (root.left != null) {
-                    temp.offer(root.left);
+        int res = 0;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int len = queue.size();
+            res = queue.peek().val;
+            while (len-- > 0) {
+                TreeNode top = queue.poll();
+                if (top.left != null) {
+                    queue.offer(top.left);
                 }
-                if (root.right != null) {
-                    temp.offer(root.right);
+                if (top.right != null) {
+                    queue.offer(top.right);
                 }
             }
         }
-        return result.get(0);
+        
+        return res;
     }
 }
 // @lc code=end

@@ -24,24 +24,22 @@ import java.util.*;
  */
 class Solution {
     public TreeNode convertBST(TreeNode root) {
-        if (root == null) {
-            return root;
-        }
-        TreeNode result = root;
-        Stack<TreeNode> temp = new Stack<>();
-        int greaterSum = 0;
-        while (root != null || !temp.isEmpty()) {
-            if (root != null) {
-                temp.push(root);
-                root = root.right;
+        Deque<TreeNode> stack = new LinkedList<>();
+        TreeNode ptr = root;
+        int sum = 0;
+        while (ptr != null || !stack.isEmpty()) {
+            if (ptr != null) {
+                stack.addLast(ptr);
+                ptr = ptr.right;
             } else {
-                root = temp.pop();
-                root.val += greaterSum;
-                greaterSum = root.val;
-                root = root.left;
+                ptr = stack.removeLast();
+                ptr.val += sum;
+                sum = ptr.val;
+                ptr = ptr.left;
             }
         }
-        return result;
+
+        return root;
     }
 }
 // @lc code=end

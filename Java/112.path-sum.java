@@ -1,6 +1,3 @@
-import java.util.LinkedList;
-import java.util.Queue;
-
 /*
  * @lc app=leetcode id=112 lang=java
  *
@@ -37,6 +34,7 @@ class Solution {
                 return false;
             }
         }
+
         return hasPathSum(root.left, res) || hasPathSum(root.right, res);
     }
 }

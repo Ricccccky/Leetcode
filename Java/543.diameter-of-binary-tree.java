@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.tree.TreeNode;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=543 lang=java
@@ -30,22 +27,24 @@ class Solution {
         if (root == null) {
             return 0;
         }
-        HashMap<TreeNode, Integer> temp = new HashMap<>();
+        Map<TreeNode, Integer> temp = new HashMap<>();
         int result = 0;
         findDepth(root, temp);
         for (Map.Entry<TreeNode, Integer> k : temp.entrySet()) {
             result = Math.max(result, k.getValue());
         }
+
         return result;
     }
 
-    private int findDepth(TreeNode root, HashMap<TreeNode, Integer> data) {
+    private int findDepth(TreeNode root, Map<TreeNode, Integer> data) {
         if (root == null) {
             return 0;
         }
         int left = findDepth(root.left, data);
         int right = findDepth(root.right, data);
         data.put(root, left + right);
+
         return Math.max(left, right) + 1;
     }
 }

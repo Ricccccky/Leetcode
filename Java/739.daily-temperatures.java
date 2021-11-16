@@ -1,5 +1,4 @@
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=739 lang=java
@@ -17,9 +16,6 @@ class Solution {
                 res[stack.peekFirst()] = i - stack.removeFirst();
             }
             stack.addFirst(i);
-        }
-        while (!stack.isEmpty()) {
-            res[stack.removeFirst()] = 0;
         }
 
         return res;

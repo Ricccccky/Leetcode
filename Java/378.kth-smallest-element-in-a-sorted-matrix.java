@@ -7,19 +7,16 @@
 // @lc code=start
 class Solution {
     public int kthSmallest(int[][] matrix, int k) {
-        int n = matrix.length;
+        int m = matrix.length;
+        int n = matrix[0].length;
         int lo = matrix[0][0];
-        int hi = matrix[n - 1][n - 1];
+        int hi = matrix[m - 1][n - 1];
         while (lo < hi) {
-            int mid = lo + (hi - lo) / 2;
+            int mid = (hi - lo) / 2 + lo;
             int count = 0;
-            int x = 0, y = n - 1;
-            while (x < n && y >= 0) {
-                if (matrix[x][y] <= mid) {
-                    count += y + 1;
-                    x++;
-                } else {
-                    y--;
+            for (int i = 0; i < m && matrix[i][0] <= mid; i++) {
+                for (int j = 0; j < n && matrix[i][j] <= mid; j++) {
+                    count++;
                 }
             }
             if (count < k) {

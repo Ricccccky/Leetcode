@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=287 lang=java
@@ -9,33 +9,20 @@ import java.util.Arrays;
 // @lc code=start
 class Solution {
     public int findDuplicate(int[] nums) {
-        int res = -1;
-        Arrays.sort(nums);
-        for (int i = 0; i < nums.length; i++) {
-            if (binarySearch(nums, nums[i], i + 1)) {
-                res = nums[i];
-                break;
-            }
+        // Floyd's algorithm
+        int slow = nums[0];
+        int fast = nums[nums[0]];
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        }
+        fast = 0;
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
         }
 
-        return res;
-    }
-
-    private boolean binarySearch(int[] nums, int target, int start) {
-        int lo = start;
-        int hi = nums.length;
-        while (lo <= hi) {
-            int mid = lo + (hi - lo) / 2;
-            if (nums[mid] == target) {
-                return true;
-            } else if (nums[mid] > target) {
-                hi = mid - 1;
-            } else {
-                lo = mid + 1;
-            }
-        }
-
-        return false;
+        return slow;
     }
 }
 // @lc code=end

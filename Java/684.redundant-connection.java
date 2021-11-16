@@ -1,3 +1,5 @@
+import java.util.*;
+
 /*
  * @lc app=leetcode id=684 lang=java
  *
@@ -7,30 +9,36 @@
 // @lc code=start
 class Solution {
     public int[] findRedundantConnection(int[][] edges) {
-        int[] prev = new int[edges.length + 1];
-        int[] result = new int[2];
-        for (int i = 0; i <= edges.length; i++) {
-            prev[i] = i;
-        }
-        for (int i = 0; i < edges.length; i++) {
-            int u = edges[i][0];
-            int v = edges[i][1];
-            int uAnce = findAncestor(u, prev);
-            int vAnce = findAncestor(v, prev);
-            if (uAnce != vAnce) {
-                prev[vAnce] = uAnce;
+        int n = edges.length;
+        int[] parents = new int[n + 1];
+        Arrays.fill(parents, -1);
+        for (int[] edge : edges) {
+            int u = edge[0];
+            int v = edge[1];
+            int uP = find(u, parents);
+            int vP = find(v, parents);
+            if (uP == vP) {
+                return new int[] {u, v};
             } else {
-                result = new int[] {u, v};
+                merge(u, v, parents);
             }
         }
-        return result;
+
+        return null;
     }
 
-    private int findAncestor(int cur, int[] prev) {
-        while (prev[cur] != cur) {
-            cur = prev[cur];
+    private int find(int node, int[] parents) {
+        if (parents[node] < 0) {
+            return node;
         }
-        return cur;
+
+        return parents[node] = find(parents[node], parents);
+    }
+
+    private void merge(int u, int v, int[] parents) {
+        int uP = find(u, parents);
+        int vP = find(v, parents);
+        parents[uP] = vP;
     }
 }
 // @lc code=end

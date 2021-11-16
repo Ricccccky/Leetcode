@@ -1,11 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=210 lang=java
@@ -17,64 +10,57 @@ import java.util.Set;
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         // Topology sort
-        // int[][] adjacentMatrix = new int[numCourses][numCourses];
-        // int[] inDegree = new int[numCourses];
-        // int[] result = new int[numCourses];
-        // int course;
-        // int count = 0;
-        // for (int i = 0; i < prerequisites.length; i++) {
-        //     int pre = prerequisites[i][1];
-        //     int late = prerequisites[i][0];
-        //     if (adjacentMatrix[pre][late] == 0) {
-        //         inDegree[late]++;
-        //     }
-        //     adjacentMatrix[pre][late] = 1;
-        // }
-
-        // Queue<Integer> temp = new LinkedList<>();
-        // for (int i = 0; i < inDegree.length; i++) {
-        //     if (inDegree[i] == 0) {
-        //         temp.offer(i);
-        //     }
-        // }
-
-        // while (!temp.isEmpty()) {
-        //     course = temp.poll();
-        //     result[count] = course;
-        //     count++;
-        //     for (int i = 0; i < numCourses; i++) {
-        //         if (adjacentMatrix[course][i] == 1) {
-        //             inDegree[i]--;
-        //             if (inDegree[i] == 0) {
-        //                 temp.offer(i);
-        //             }
-        //         }
-        //     }
-        // }
-
-        // if (count == numCourses) {
-        //     return result;
-        // } else {
-        //     return new int[] {};
-        // }
-
-        // DFS
-        Map<Integer, Set<Integer>> map = new HashMap<>();
-        int[] visited = new int[numCourses];
+        Map<Integer, Set<Integer>> graph = new HashMap<>();
+        Deque<Integer> queue = new LinkedList<>();
         List<Integer> res = new ArrayList<>();
-        for (int i = 0; i < prerequisites.length; i++) {
-            int parent = prerequisites[i][1];
-            int child = prerequisites[i][0];
-            map.putIfAbsent(child, new HashSet<>());
-            map.get(child).add(parent);
+        int[] indegree = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            graph.put(i, new HashSet<>());
+        }
+        for (int[] p : prerequisites) {
+            int pre = p[1];
+            int course = p[0];
+            graph.get(pre).add(course);
+            indegree[course]++;
         }
         for (int i = 0; i < numCourses; i++) {
-            if (dfs(map, visited, i, res)) {
-                return new int[0];
+            if (indegree[i] == 0) {
+                queue.offer(i);
             }
+        }
+        while (!queue.isEmpty()) {
+            int top = queue.poll();
+            res.add(top);
+            for (int next : graph.get(top)) {
+                indegree[next]--;
+                if (indegree[next] == 0) {
+                    queue.offer(next);
+                }
+            }
+        }
+        if (res.size() != numCourses) {
+            return new int[0];
         }
 
         return res.stream().mapToInt(Integer::valueOf).toArray();
+
+        // DFS
+        // Map<Integer, Set<Integer>> map = new HashMap<>();
+        // int[] visited = new int[numCourses];
+        // List<Integer> res = new ArrayList<>();
+        // for (int i = 0; i < prerequisites.length; i++) {
+        //     int parent = prerequisites[i][1];
+        //     int child = prerequisites[i][0];
+        //     map.putIfAbsent(child, new HashSet<>());
+        //     map.get(child).add(parent);
+        // }
+        // for (int i = 0; i < numCourses; i++) {
+        //     if (dfs(map, visited, i, res)) {
+        //         return new int[0];
+        //     }
+        // }
+
+        // return res.stream().mapToInt(Integer::valueOf).toArray();
     }
 
     private boolean dfs(Map<Integer, Set<Integer>> map, int[] visited, int node, List<Integer> res) {

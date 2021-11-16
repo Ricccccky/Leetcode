@@ -1,5 +1,4 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=785 lang=java
@@ -30,6 +29,7 @@ class Solution {
                 }
             }
         }
+        
         return true;
     }
 }

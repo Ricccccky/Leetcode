@@ -9,40 +9,36 @@ import java.util.*;
 // @lc code=start
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        int [][] adjacentMatrix = new int[numCourses][numCourses];
-        int [] inDegree = new int[numCourses];
-        int numNodes = 0;
-        int course;
-        for (int i = 0; i < prerequisites.length; i++) {
-            int pre = prerequisites[i][1];
-            int late = prerequisites[i][0];
-            if (adjacentMatrix[pre][late] == 0) {
-                inDegree[late]++;
-            }
-            adjacentMatrix[pre][late] = 1;
+        Map<Integer, Set<Integer>> graph = new HashMap<>();
+        Deque<Integer> queue = new LinkedList<>();
+        int[] indegree = new int[numCourses];
+        int count = 0;
+        for (int i = 0; i < numCourses; i++) {
+            graph.put(i, new HashSet<>());
         }
-
-        Queue<Integer> temp = new LinkedList<>();
-        for (int i = 0; i < inDegree.length; i++) {
-            if (inDegree[i] == 0) {
-                temp.offer(i);
+        for (int[] prerequisite : prerequisites) {
+            int pre = prerequisite[1];
+            int course = prerequisite[0];
+            graph.get(pre).add(course);
+            indegree[course]++;
+        }
+        for (int i = 0; i < numCourses; i++) {
+            if (indegree[i] == 0) {
+                queue.offer(i);
             }
         }
-
-        while (!temp.isEmpty()) {
-            course = temp.poll();
-            numNodes++;
-            for (int i = 0; i < numCourses; i++) {
-                if (adjacentMatrix[course][i] == 1) {
-                    inDegree[i]--;
-                    if (inDegree[i] == 0) {
-                        temp.offer(i);
-                    }
+        while (!queue.isEmpty()) {
+            int start = queue.poll();
+            count++;
+            for (int next : graph.get(start)) {
+                indegree[next]--;
+                if (indegree[next] == 0) {
+                    queue.offer(next);
                 }
             }
         }
-        
-        return numCourses == numNodes;
+
+        return count == numCourses;
     }
 }
 // @lc code=end

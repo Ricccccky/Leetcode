@@ -1,6 +1,4 @@
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=128 lang=java
@@ -25,6 +23,7 @@ class Solution {
                 map.put(num + right, sum);
             }
         }
+        
         return result;
     }
 }

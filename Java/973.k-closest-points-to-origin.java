@@ -1,9 +1,5 @@
-import java.util.Iterator;
-import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.TreeMap;
-import java.util.Map.Entry;
 
 /*
  * @lc app=leetcode id=973 lang=java
@@ -26,6 +22,7 @@ class Solution {
             result[K - 1][1] = temp[2];
             K--;
         }
+        
         return result;
     }
 }

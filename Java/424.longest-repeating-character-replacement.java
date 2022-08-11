@@ -1,5 +1,3 @@
-import java.util.HashMap;
-import java.util.Map;
 
 /*
  * @lc app=leetcode id=424 lang=java
@@ -14,10 +12,12 @@ class Solution {
         int head = 0, tail = 0;
         int maxFreq = 0;
         int result = 0;
+        int n = s.length();
         char[] sArray = s.toCharArray();
-        while (tail < s.length()) {
-            counter[sArray[tail] - 'A']++;
-            maxFreq = Math.max(maxFreq, counter[sArray[tail] - 'A']);
+        while (tail < n) {
+            int c = sArray[tail] - 'A';
+            counter[c]++;
+            maxFreq = Math.max(maxFreq, counter[c]);
             while (tail - head + 1 - maxFreq > k) {
                 counter[sArray[head] - 'A']--;
                 head++;

@@ -1,4 +1,4 @@
-import java.util.Stack;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=1047 lang=java
@@ -9,19 +9,22 @@ import java.util.Stack;
 // @lc code=start
 class Solution {
     public String removeDuplicates(String S) {
-        Stack<Character> stack = new Stack<>();
+        StringBuilder sb = new StringBuilder();
+        Deque<Character> stack = new LinkedList<>();
         for (char c : S.toCharArray()) {
-            if (stack.empty() || stack.peek() != c) {
-                stack.push(c);
+            if (!stack.isEmpty() && stack.peek() == c) {
+                while (!stack.isEmpty() && stack.peek() == c) {
+                    stack.pop();
+                }
             } else {
-                stack.pop();
+                stack.push(c);
             }
         }
-        StringBuilder result = new StringBuilder();
         while (!stack.isEmpty()) {
-            result.insert(0, stack.pop());
+            sb.insert(0, stack.pop());
         }
-        return result.toString();
+
+        return sb.toString();
     }
 }
 // @lc code=end

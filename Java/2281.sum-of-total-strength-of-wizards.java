@@ -10,24 +10,26 @@ import java.util.*;
 class Solution {
     public int totalStrength(int[] strength) {
         int result = 0, sum = 0;
-        int mod = (int)1e9+7;
+        int mod = 1000000007;
         int n = strength.length;
-        Deque<Integer> stack = new LinkedList<>();
-        int[] pre_sum = new int[n + 2];
-        for (int r = 0; r < n; r++) {
-            sum = (sum + strength[r]) % mod;
-            pre_sum[r + 1] = (sum + pre_sum[r]) % mod;
-            while (!stack.isEmpty() && strength[stack.peekLast()] > strength[r]) {
-                int i = stack.pop();
-                int l = stack.isEmpty() ? -1 : stack.peek();
-                long lacc = l < 0 ? pre_sum[i] : pre_sum[i] - pre_sum[l], racc = pre_sum[r] - pre_sum[i];
-                int ln = i - l, rn = r - i;
-                result = (int)(result + (racc * ln - lacc * rn) % mod * strength[i] % mod) % mod;
+        Deque<Integer> minStack = new LinkedList<>();
+        int[] sumPrefix = new int[n + 2];
+        for (int r = 0; r <= n; r++) {
+            int w = r < n ? strength[r] : 0;
+            sum = (sum + w) % mod;
+            sumPrefix[r + 1] = (sum + sumPrefix[r]) % mod;
+            while (!minStack.isEmpty() && strength[minStack.peekFirst()] > w) {
+                int top = minStack.pop();
+                int l = minStack.isEmpty() ? -1 : minStack.peek();
+                long left_sum = l < 0 ? sumPrefix[top] : sumPrefix[top] - sumPrefix[l];
+                long right_sum = sumPrefix[r] - sumPrefix[top];
+                int ln = top - l, rn = r - top;
+                result = (int)(result + (right_sum * ln - left_sum * rn) % mod * strength[top] % mod) % mod;
             }
-            stack.push(r);
+            minStack.push(r);
         }
 
-        return result % mod;
+        return (result + mod) % mod;
     }
 }
 // @lc code=end

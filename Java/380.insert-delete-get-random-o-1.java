@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=380 lang=java
@@ -38,6 +34,7 @@ class RandomizedSet {
         if (map.containsKey(val)) {
             int index = map.get(val);
             int last = list.get(list.size() - 1);
+            // Swap last and val
             map.put(last, index);
             map.remove(val);
             list.set(index, last);

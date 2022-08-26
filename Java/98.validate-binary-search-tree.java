@@ -1,3 +1,4 @@
+import java.util.*;
 
 /*
  * @lc app=leetcode id=98 lang=java
@@ -35,6 +36,39 @@ class Solution {
         
         return true;
     }
+
+    // Morris Traversal ( Using Threaded Tree for Inorder Traversal), O(n) time and O(1) space
+    // public boolean isValidBST(TreeNode root) {
+    //     TreeNode prev = null;
+    //     TreeNode curNode = root;
+    //     while (curNode != null) {
+    //         if (curNode.left != null) {
+    //             TreeNode predecessor = curNode.left;
+    //             while (predecessor.right != null && predecessor.right != curNode) {
+    //                 predecessor = predecessor.right;
+    //             }
+    //             if (predecessor.right == null) {
+    //                 predecessor.right = curNode;
+    //                 curNode = curNode.left;
+    //             } else {
+    //                 predecessor.right = null;
+    //                 if (prev != null && prev.val >= curNode.val) {
+    //                     return false;
+    //                 }
+    //                 prev = curNode;
+    //                 curNode = curNode.right;
+    //             }
+    //         } else {
+    //             if (prev != null && prev.val >= curNode.val) {
+    //                 return false;
+    //             }
+    //             prev = curNode;
+    //             curNode = curNode.right;
+    //         }
+    //     }
+        
+    //     return true;
+    // }
 }
 // @lc code=end
 

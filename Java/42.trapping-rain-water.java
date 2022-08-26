@@ -16,7 +16,7 @@ class Solution {
         int left = 0;
         int right = 0;
         int result = 0;
-        while (p1 <= p2) {
+        while (p1 < p2) {
             left = Math.max(height[p1], left);
             right = Math.max(height[p2], right);
             if (left < right) {
@@ -27,6 +27,7 @@ class Solution {
                 p2--;
             }
         }
+        
         return result;
     }
 }

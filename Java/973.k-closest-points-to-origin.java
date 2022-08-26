@@ -1,5 +1,4 @@
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=973 lang=java

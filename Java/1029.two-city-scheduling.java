@@ -1,4 +1,4 @@
-import java.util.PriorityQueue;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=1029 lang=java
@@ -18,6 +18,7 @@ class Solution {
         for (int i = 0; i < costs.length / 2; i++) {
             result += temp.poll();
         }
+        
         return result;
     }
 }

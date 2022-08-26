@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=140 lang=java
@@ -18,27 +15,24 @@ class Solution {
 
     private List<String> dfs(String s, int end, List<String> wordDict) {
         List<String> result = new ArrayList<>();
-        if (s == null || end == 0) {
-            return result;
+        String prefix = s.substring(0, end);
+        if (dp.containsKey(prefix)) {
+            return dp.get(prefix);
         }
-        String string = s.substring(0, end);
-        if (dp.containsKey(string)) {
-            return dp.get(string);
+        if (wordDict.contains(prefix)) {
+            result.add(prefix);
         }
-        if (wordDict.contains(string)) {
-            result.add(string);
-        }
-        for (int i = 1; i < string.length(); i++) {
-            String temp = string.substring(i);
-            if (wordDict.contains(temp)) {
-                List<String> words = dfs(s, i, wordDict);
-                for (String word : words) {
-                    result.add(word + " " + temp);
+        for (int i = prefix.length() - 1; i >= 0; i--) {
+            String suffix = prefix.substring(i);
+            if (wordDict.contains(suffix)) {
+                List<String> temp = dfs(s, i, wordDict);
+                for (String words : temp) {
+                    result.add(words + " " + suffix);
                 }
             }
         }
-        dp.put(string, result);
-        System.out.println(dp);
+        dp.put(prefix, result);
+
         return result;
     }
 }

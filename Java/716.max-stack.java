@@ -1,5 +1,4 @@
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=716 lang=java
@@ -9,24 +8,78 @@ import java.util.LinkedList;
 
 // @lc code=start
 class MaxStack {
-    private Deque<Integer> stack;
-    private Deque<Integer> maxStack;
+    // TreeMap + DeLinkedList: O(logN); Two stacks: O(N)
+    
+    class Node {
+        int val;
+        Node prev, next;
 
-    /** initialize your data structure here. */
+        public Node(int val) {
+            this.val = val;
+        }
+    }
+
+    class Delinkedlist {
+        Node head, tail;
+
+        public Delinkedlist() {
+            head = new Node(-1);
+            tail = new Node(-1);
+            head.next = tail;
+            tail.prev = head;
+        }
+
+        public Node addNode(int x) {
+            Node node = new Node(x);
+            node.next = head.next;
+            head.next.prev = node;
+            head.next = node;
+            node.prev = head;
+
+            return node;
+        }
+
+        public void deleteNode(Node node) {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+        }
+
+        public int peek() {
+            return head.next.val;
+        }
+
+        public int pop() {
+            int val = head.next.val;
+            deleteNode(head.next);
+
+            return val;
+        }
+    }
+
+    TreeMap<Integer, List<Node>> map;
+    Delinkedlist stack;
+
     public MaxStack() {
-        stack = new LinkedList<>();
-        maxStack = new LinkedList<>();
+        map = new TreeMap<>((k1, k2) -> k2 - k1);
+        stack = new Delinkedlist();
     }
     
     public void push(int x) {
-        int max = maxStack.isEmpty() ? x : maxStack.peek();
-        maxStack.push(x > max ? x : max);
-        stack.push(x);
+        Node node = stack.addNode(x);
+        if (!map.containsKey(x)) {
+            map.put(x, new ArrayList<>());
+        }
+        map.get(x).add(node);
     }
     
     public int pop() {
-        maxStack.pop();
-        return stack.pop();
+        int val = stack.pop();
+        map.get(val).remove(map.get(val).size() - 1);
+        if (map.get(val).size() == 0) {
+            map.remove(val);
+        }
+
+        return val;
     }
     
     public int top() {
@@ -34,21 +87,18 @@ class MaxStack {
     }
     
     public int peekMax() {
-        return maxStack.peek();
+        return map.firstKey();
     }
     
     public int popMax() {
-        Deque<Integer> tmp = new LinkedList<>();
-        int max = maxStack.peek();
-        while (top() != max) {
-            tmp.push(pop());
+        Map.Entry<Integer, List<Node>> entry = map.firstEntry();
+        if (entry.getValue().size() == 1) {
+            map.remove(entry.getKey());
         }
-        pop();
-        while (!tmp.isEmpty()) {
-            push(tmp.pop());
-        }
+        stack.deleteNode(entry.getValue().get(entry.getValue().size() - 1));
+        entry.getValue().remove(entry.getValue().size() - 1);
 
-        return max;
+        return entry.getKey();
     }
 }
 

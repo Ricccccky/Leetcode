@@ -1,3 +1,5 @@
+import java.util.*;
+
 /*
  * @lc app=leetcode id=1249 lang=java
  *
@@ -7,7 +9,7 @@
 // @lc code=start
 class Solution {
     public String minRemoveToMakeValid(String s) {
-        Stack<Integer> stack = new Stack<>();
+        Deque<Integer> stack = new LinkedList<>();
         Set<Integer> set = new HashSet<>();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {

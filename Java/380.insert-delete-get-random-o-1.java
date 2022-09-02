@@ -11,6 +11,7 @@ class RandomizedSet {
     Map<Integer, Integer> map;
     List<Integer> list;
     Random rand;
+    
     /** Initialize your data structure here. */
     public RandomizedSet() {
         map = new HashMap<>();

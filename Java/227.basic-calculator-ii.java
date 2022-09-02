@@ -1,5 +1,4 @@
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=227 lang=java
@@ -22,7 +21,6 @@ class Solution {
             if (!Character.isDigit(c) && !Character.isWhitespace(c) || i == s.length() - 1) {
                 if (op == '+') {
                     stack.push(num);
-                    num = 0;
                 } else if (op == '-') {
                     stack.push(-num);
                 } else if (op == '*') {

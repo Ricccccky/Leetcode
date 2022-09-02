@@ -21,6 +21,7 @@ class Solution {
         for (int i = 0; i < nums1.length; i++) {
             nums1[i] = map.getOrDefault(nums1[i], -1);
         }
+        
         return nums1;
     }
 }

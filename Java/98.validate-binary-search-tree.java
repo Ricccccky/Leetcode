@@ -37,7 +37,7 @@ class Solution {
         return true;
     }
 
-    // Morris Traversal ( Using Threaded Tree for Inorder Traversal), O(n) time and O(1) space
+    // Morris Traversal (Using Threaded Tree for Inorder Traversal), O(n) time and O(1) space
     // public boolean isValidBST(TreeNode root) {
     //     TreeNode prev = null;
     //     TreeNode curNode = root;

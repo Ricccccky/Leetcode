@@ -19,7 +19,7 @@ import java.util.*;
  */
 class Solution {
     public int pairSum(ListNode head) {
-        Deque<ListNode> stack = new LinkedList<>();
+        Deque<Integer> stack = new LinkedList<>();
         int len = 0;
         int result = 0;
         ListNode dummy = head;
@@ -27,17 +27,15 @@ class Solution {
             dummy = dummy.next;
             len++;
         }
+        len /= 2;
         dummy = head;
-        for (int i = 0; i < len / 2; i++) {
-            dummy = dummy.next;
-        }
-        for (int i = 0; i < len / 2; i++) {
-            stack.push(dummy);
+        while (len-- > 0) {
+            stack.push(dummy.val);
             dummy = dummy.next;
         }
         while (!stack.isEmpty()) {
-            result = Math.max(result, head.val + stack.pop().val);
-            head = head.next;
+            result = Math.max(result, dummy.val + stack.pop());
+            dummy = dummy.next;
         }
 
         return result;

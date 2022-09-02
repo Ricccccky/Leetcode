@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=103 lang=java
@@ -26,16 +23,14 @@ class Solution {
             return result;
         }
         Queue<TreeNode> temp = new LinkedList<>();
-        TreeNode top = null;
-        int len;
         boolean flag = true;
         temp.offer(root);
         while (!temp.isEmpty()) {
             List<Integer> level = new ArrayList<>();
-            len = temp.size();
+            int len = temp.size();
             if (flag) {
-                for (int i = 0; i < len; i++) {
-                    top = temp.remove();
+                while (len-- > 0) {
+                    TreeNode top = temp.remove();
                     level.add(top.val);
                     if (top.left != null) {
                         temp.offer(top.left);
@@ -46,8 +41,8 @@ class Solution {
                 }
                 flag = false;
             } else {
-                for (int i = 0; i < len; i++) {
-                    top = temp.remove();
+                while (len-- > 0) {
+                    TreeNode top = temp.remove();
                     level.add(0, top.val);
                     if (top.left != null) {
                         temp.offer(top.left);

@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=545 lang=java
@@ -33,6 +30,7 @@ class Solution {
         if (isLeaf(root)) {
             return res;
         }
+        // Add left boundary
         TreeNode ptr = root.left;
         while (ptr != null) {
             if (!isLeaf(ptr)) {
@@ -44,8 +42,10 @@ class Solution {
                 ptr = ptr.right;
             }
         }
+        // Add leaves
         addLeaves(res, root);
         ptr = root.right;
+        // Add right boundary
         while (ptr != null) {
             if (!isLeaf(ptr)) {
                 stack.addFirst(ptr.val);

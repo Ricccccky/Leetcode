@@ -26,10 +26,8 @@ class Solution {
         } else if (end - start == 2) {
             return merge2Lists(lists[start], lists[start + 1]);
         } else {
-            int mid = (start + end) / 2;
-            ListNode pre = mergeKLists(lists, start, mid);
-            ListNode lat = mergeKLists(lists, mid, end);
-            return merge2Lists(pre, lat);
+            int mid = start + (end - start) / 2;
+            return merge2Lists(mergeKLists(lists, start, mid), mergeKLists(lists, mid, end));
         }
     }
 

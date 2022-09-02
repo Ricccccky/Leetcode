@@ -8,16 +8,29 @@ import java.util.*;
 
 // @lc code=start
 class Solution {
+    private class Trie {
+        Trie[] child;
+
+        public Trie() {
+            child = new Trie[26];
+        }
+    }
     public int countDistinct(String s) {
-        Set<String> set = new HashSet<>();
-        int n = s.length();
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j <= n; j++) {
-                set.add(s.substring(i, j));
+        int result = 0;
+        Trie root = new Trie();
+        for (int i = 0; i < s.length(); i++) {
+            Trie dummy = root;
+            for (int j = i; j < s.length(); j++) {
+                char c = s.charAt(j);
+                if (dummy.child[c - 'a'] == null) {
+                    dummy.child[c - 'a'] = new Trie();
+                    result++;
+                }
+                dummy = dummy.child[c - 'a'];
             }
         }
 
-        return set.size();
+        return result;
     }
 }
 // @lc code=end

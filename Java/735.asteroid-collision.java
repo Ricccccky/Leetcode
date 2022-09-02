@@ -1,5 +1,4 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=735 lang=java
@@ -13,22 +12,23 @@ class Solution {
         Deque<Integer> stack = new ArrayDeque<>();
         for (int asteroid : asteroids) {
             if (asteroid > 0) {
-                stack.add(asteroid);
+                stack.push(asteroid);
             } else {
-                while (!stack.isEmpty() && stack.peekLast() > 0 && stack.peekLast() + asteroid < 0) {
-                    stack.removeLast();
+                while (!stack.isEmpty() && stack.peek() > 0 && stack.peek() + asteroid < 0) {
+                    stack.pop();
                 }
-                if (stack.isEmpty() || stack.peekLast() < 0) {
-                    stack.add(asteroid);
-                } else if (stack.peekLast() + asteroid == 0) {
-                    stack.removeLast();
+                if (stack.isEmpty() || stack.peek() < 0) {
+                    stack.push(asteroid);
+                } else if (stack.peek() + asteroid == 0) {
+                    stack.pop();
                 }
             }
         }
         int[] result = new int[stack.size()];
         for (int i = 0; i < result.length; i++) {
-            result[i] = stack.removeFirst();
+            result[i] = stack.removeLast();
         }
+
         return result;
     }
 }

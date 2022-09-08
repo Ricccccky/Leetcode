@@ -1,5 +1,4 @@
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=772 lang=java
@@ -20,51 +19,48 @@ class Solution {
                     num = num * 10 + (s.charAt(i + 1) - '0');
                     i++;
                 }
-                nums.addFirst(num);
+                nums.push(num);
             } else if (c == '(') {
-                ops.addFirst(c);
+                ops.push(c);
             } else if (c == ')') {
-                while (ops.peekFirst() != '(') {
-                    nums.addFirst(calculation(ops.removeFirst(), nums.removeFirst(), nums.removeFirst()));
+                while (ops.peek() != '(') {
+                    nums.push(calculation(ops.pop(), nums.pop(), nums.pop()));
                 }
-                ops.removeFirst();
+                ops.pop();
             } else if (c == '+' || c == '-' || c == '*' || c == '/') {
-                while (!ops.isEmpty() && checkOrder(c, ops.peekFirst())) {
-                    nums.addFirst(calculation(ops.removeFirst(), nums.removeFirst(), nums.removeFirst()));
+                while (!ops.isEmpty() && checkOrder(c, ops.peek())) {
+                    nums.push(calculation(ops.pop(), nums.pop(), nums.pop()));
                 }
                 // Dealing with negative numbers
                 // if (c == '-') {
                 //     if (nums.isEmpty()) {
-                //         nums.addFirst(0);
+                //         nums.push(0);
                 //     } else {
                 //         int idx = i - 1;
                 //         while (idx >= 0 && s.charAt(idx) == ' ') {
                 //             idx--;
                 //         }
                 //         if (s.charAt(idx) == '(') {
-                //             nums.addFirst(0);
+                //             nums.push(0);
                 //         }
                 //     }
                 // }
-                ops.addFirst(c);
+                ops.push(c);
             }
         }
         while (!ops.isEmpty()) {
-            nums.addFirst(calculation(ops.removeFirst(), nums.removeFirst(), nums.removeFirst()));
+            nums.push(calculation(ops.pop(), nums.pop(), nums.pop()));
         }
 
-        return nums.removeFirst();
+        return nums.pop();
     }
 
     private boolean checkOrder(char op_1, char op_2) {
-        if (op_2 == '(' || op_2 == ')') {
+        if (op_2 == '(') {
             return false;
         }
-        if ((op_1 == '*' || op_1 == '/') && (op_2 == '+' || op_2 == '-')) {
-            return false;
-        }
-
-        return true;
+        
+        return op_2 == '*' || op_2 == '/' || op_1 == '+' || op_1 == '-';
     }
 
     private int calculation (char op, int y, int x) {

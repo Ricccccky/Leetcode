@@ -1,5 +1,4 @@
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=295 lang=java
@@ -9,27 +8,27 @@ import java.util.Queue;
 
 // @lc code=start
 class MedianFinder {
-    Queue<Integer> max;
-    Queue<Integer> min;
-    /** initialize your data structure here. */
+    private PriorityQueue<Integer> maxHeap;
+    private PriorityQueue<Integer> minHeap;
+    
     public MedianFinder() {
-        max = new PriorityQueue<>();
-        min = new PriorityQueue<>();
+        maxHeap = new PriorityQueue<>((x, y) -> y - x);
+        minHeap = new PriorityQueue<>();
     }
     
     public void addNum(int num) {
-        max.offer(num);
-        min.offer(-max.poll());
-        if (max.size() < min.size()) {
-            max.offer(-min.poll());
+        maxHeap.offer(num);
+        minHeap.offer(maxHeap.poll());
+        if (maxHeap.size() < minHeap.size()) {
+            maxHeap.offer(minHeap.poll());
         }
     }
     
     public double findMedian() {
-        if (max.size() > min.size()) {
-            return max.peek();
+        if (maxHeap.size() == minHeap.size()) {
+            return (double)(maxHeap.peek() + minHeap.peek()) / 2;
         } else {
-            return (max.peek() - min.peek()) / 2.0;
+            return (double)maxHeap.peek();
         }
     }
 }

@@ -1,10 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
-
-import javax.swing.tree.TreeNode;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=863 lang=java
@@ -52,7 +46,7 @@ class Solution {
         return -1;
     }
 
-    private void dfs (TreeNode root, TreeNode target, int K, int distance, List<Integer> result, HashMap<TreeNode, Integer> map) {
+    private void dfs(TreeNode root, TreeNode target, int K, int distance, List<Integer> result, HashMap<TreeNode, Integer> map) {
         if (root == null) {
             return;
         }
@@ -62,6 +56,7 @@ class Solution {
         if (distance == K) {
             result.add(root.val);
         }
+        // To the other side not in map
         dfs(root.left, target, K, distance + 1, result, map);
         dfs(root.right, target, K, distance + 1, result, map);
     }

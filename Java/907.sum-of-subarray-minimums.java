@@ -1,5 +1,4 @@
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=907 lang=java
@@ -34,7 +33,7 @@ class Solution {
             stack.addFirst(new int[] {arr[i], len});
         }
         for (int i = 0; i < n; i++) {
-            res += arr[i] * (long)left[i] * (long)right[i];
+            res += (long)arr[i] * left[i] * right[i];
             res %= mod;
         }
         return (int)res;

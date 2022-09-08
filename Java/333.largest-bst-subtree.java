@@ -23,10 +23,9 @@ import java.util.*;
  * }
  */
 class Solution {
+    private TreeNode prev;
     public int largestBSTSubtree(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
+        prev = null;
         if (isBST(root)) {
             return countNode(root);
         }
@@ -38,30 +37,15 @@ class Solution {
         if (root == null) {
             return true;
         }
-        if (root.val >= minNode(root.right)) {
+        if (!isBST(root.left)) {
             return false;
         }
-        if (root.val <= maxNode(root.left)) {
+        if (prev != null && prev.val >= root.val) {
             return false;
         }
+        prev = root;
 
-        return isBST(root.left) && isBST(root.right);
-    }
-
-    private int maxNode(TreeNode root) {
-        if (root == null) {
-            return Integer.MIN_VALUE;
-        }
-
-        return Math.max(root.val, Math.max(maxNode(root.left), maxNode(root.right)));
-    }
-
-    private int minNode(TreeNode root) {
-        if (root == null) {
-            return Integer.MAX_VALUE;
-        }
-
-        return Math.min(root.val, Math.min(minNode(root.left), minNode(root.right)));
+        return isBST(root.right);
     }
 
     private int countNode(TreeNode root) {

@@ -1,4 +1,4 @@
-import java.util.Stack;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=99 lang=java
@@ -21,9 +21,6 @@ class Solution {
     TreeNode e2 = null;
     TreeNode pre = null;
     public void recoverTree(TreeNode root) {
-        if (root == null) {
-            return;
-        }
         inorder(root);
         int temp = e1.val;
         e1.val = e2.val;

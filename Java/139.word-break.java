@@ -8,19 +8,46 @@ import java.util.*;
 
 // @lc code=start
 class Solution {
+    private class Trie {
+        boolean isWord;
+        Trie[] child;
+
+        public Trie() {
+            isWord = false;
+            child = new Trie[26];
+        }
+    }
+
     public boolean wordBreak(String s, List<String> wordDict) {
-        int m = s.length();
-        boolean[] dp = new boolean[m + 1];
+        Trie root = new Trie();
+        int n = s.length();
+        boolean[] dp = new boolean[n + 1];
         dp[0] = true;
-        for (int i = 1; i <= m; i++) {
-            for (int j = 0; j < i; j++) {
-                if (wordDict.contains(s.substring(j, i))) {
-                    dp[i] |= dp[j];
+        for (String word : wordDict) {
+            Trie dummy = root;
+            for (char c : word.toCharArray()) {
+                if (dummy.child[c - 'a'] == null) {
+                    dummy.child[c - 'a'] = new Trie();
+                }
+                dummy = dummy.child[c - 'a'];
+            }
+            dummy.isWord = true;
+        }
+        for (int i = 1; i <= n; i++) {
+            Trie dummy = root;
+            for (int j = i - 1; j < n; j++) {
+                char c = s.charAt(j);
+                if (dummy.child[c - 'a'] == null) {
+                    break;
+                }
+                dummy = dummy.child[c - 'a'];
+                if (dummy.isWord && dp[i - 1]) {
+                    dp[j + 1] = true;
                 }
             }
         }
-        
-        return dp[m];
+
+        return dp[n];
     }
 }
 // @lc code=end

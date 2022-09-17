@@ -17,7 +17,7 @@ class Solution {
         for (int t : target) {
             queue.offer(t);
         }
-        while (queue.element() > 1) {
+        while (queue.peek() > 1) {
             int max = queue.poll();
             int rest = sum - max;
             if (rest == 1) {

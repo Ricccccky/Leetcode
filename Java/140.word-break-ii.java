@@ -8,31 +8,68 @@ import java.util.*;
 
 // @lc code=start
 class Solution {
+    private Trie root;
     public List<String> wordBreak(String s, List<String> wordDict) {
-        return dfs(s, s.length(), wordDict, new HashMap<>());
-    }
-
-    private List<String> dfs(String s, int end, List<String> wordDict, Map<String, List<String>> dp) {
         List<String> result = new ArrayList<>();
-        String prefix = s.substring(0, end);
-        if (dp.containsKey(prefix)) {
-            return dp.get(prefix);
+        root = new Trie();
+        for (String word : wordDict) {
+            root.addWord(word);
         }
-        if (wordDict.contains(prefix)) {
-            result.add(prefix);
-        }
-        for (int i = prefix.length() - 1; i >= 0; i--) {
-            String suffix = prefix.substring(i);
-            if (wordDict.contains(suffix)) {
-                List<String> temp = dfs(s, i, wordDict, dp);
-                for (String words : temp) {
-                    result.add(words + " " + suffix);
-                }
-            }
-        }
-        dp.put(prefix, result);
+        backtracking(result, root, new StringBuilder(), s.toCharArray(), 0);
 
         return result;
+    }
+
+    private void backtracking(List<String> result, Trie node, StringBuilder buffer, char[] arr, int index) {
+        if (index == arr.length) {
+            return;
+        }
+        if (node.getChild(arr[index]) == null) {
+            return;
+        }
+        Trie next = node.getChild(arr[index]);
+        buffer.append(arr[index]);
+        if (next.isWord) {
+            if (index + 1 == arr.length) {
+                result.add(buffer.toString());
+                buffer.deleteCharAt(buffer.length() - 1);
+                return;
+            } else {
+                buffer.append(" ");
+                backtracking(result, root, buffer, arr, index + 1);
+                // Remove the last space
+                buffer.deleteCharAt(buffer.length() - 1);
+            }
+        }
+        backtracking(result, next, buffer, arr, index + 1);
+        // Remove the character just added
+        buffer.deleteCharAt(buffer.length() - 1);
+    }
+
+    class Trie {
+        boolean isWord;
+        private Trie[] child;
+
+        public Trie() {
+            isWord = false;
+            child = new Trie[26];
+        }
+
+        public void addWord(String word) {
+            Trie dummy = this;
+            char[] arr = word.toCharArray();
+            for (int i = 0; i < word.length(); i++) {
+                if (dummy.child[arr[i] - 'a'] == null) {
+                    dummy.child[arr[i] - 'a'] = new Trie();
+                }
+                dummy = dummy.child[arr[i] - 'a'];
+            }
+            dummy.isWord = true;
+        }
+
+        public Trie getChild(char c) {
+            return this.child[c - 'a'];
+        }
     }
 }
 // @lc code=end

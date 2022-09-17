@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=22 lang=java
@@ -11,9 +10,6 @@ import java.util.List;
 class Solution {
     public List<String> generateParenthesis(int n) {
         List<String> result = new ArrayList<>();
-        if (n == 0) {
-            return result;
-        }
         backtracking(result, "", 0, 0, n);
         return result;
     }

@@ -1,6 +1,4 @@
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /*
  * @lc app=leetcode id=2115 lang=java
@@ -14,20 +12,24 @@ class Solution {
         List<String> result = new ArrayList<>();
         Map<String, Set<String>> ingredientToRecipes = new HashMap<>();
         Map<String, Integer> inDegree = new HashMap<>();
-        Deque<String> available = Stream.of(supplies).collect(Collectors.toCollection(LinkedList::new));
+        Deque<String> available = new LinkedList<>();
         for (int i = 0; i < recipes.length; i++) {
             for (String ing : ingredients.get(i)) {
                 ingredientToRecipes.computeIfAbsent(ing, s -> new HashSet<>()).add(recipes[i]);
             }
             inDegree.put(recipes[i], ingredients.get(i).size());
         }
+        for (String supply : supplies) {
+            available.offer(supply);
+        }
         while (!available.isEmpty()) {
             String ing = available.poll();
             if (ingredientToRecipes.containsKey(ing)) {
-                for (String rcp : ingredientToRecipes.remove(ing)) {
-                    if (inDegree.merge(rcp, -1, Integer::sum) == 0) {
-                        available.offer(rcp);
-                        result.add(rcp);
+                for (String recipe : ingredientToRecipes.remove(ing)) {
+                    inDegree.put(recipe, inDegree.get(recipe) - 1);
+                    if (inDegree.get(recipe) == 0) {
+                        available.offer(recipe);
+                        result.add(recipe);
                     }
                 }
             }

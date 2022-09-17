@@ -22,6 +22,7 @@ class Solution {
                 result = p2 - p1;
             }
         }
+        
         return result;
     }
 }

@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=1656 lang=java
@@ -19,7 +18,7 @@ class OrderedStream {
     
     public List<String> insert(int idKey, String value) {
         List<String> result = new ArrayList<>();
-        values[--idKey] = value;
+        values[idKey - 1] = value;
         while (ptr < values.length && values[ptr] != null) {
             result.add(values[ptr]);
             ptr++;

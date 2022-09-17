@@ -10,7 +10,6 @@ import java.util.*;
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
-        Arrays.sort(nums);
         backtracking(result, new ArrayList<>(), nums, 0);
 
         return result;

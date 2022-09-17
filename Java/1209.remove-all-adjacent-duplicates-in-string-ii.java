@@ -9,22 +9,23 @@ import java.util.*;
 // @lc code=start
 class Solution {
     public String removeDuplicates(String s, int k) {
-        StringBuilder sb = new StringBuilder(s);
         Deque<Integer> stack = new LinkedList<>();
-        for (int i = 0; i < sb.length(); i++) {
-            if (i == 0 || sb.charAt(i) != sb.charAt(i - 1)) {
+        char[] arr = s.toCharArray();
+        int i = 0;
+        for (int j = 0; j < arr.length; i++, j++) {
+            arr[i] = arr[j];
+            if (i == 0 || arr[i] != arr[i - 1]) {
                 stack.push(1);
             } else {
                 stack.push(stack.pop() + 1);
-                if (stack.peekFirst() == k) {
+                if (stack.peek() == k) {
                     stack.pop();
-                    sb.delete(i - k + 1, i + 1);
-                    i = i - k;
+                    i -= k;
                 }
             }
         }
 
-        return sb.toString();
+        return new String(arr, 0, i);
     }
 }
 // @lc code=end

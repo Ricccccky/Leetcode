@@ -37,6 +37,7 @@ class Solution {
     //     return sb.length();
     // }
 
+    // In-place
     public int compress(char[] chars) {
         int n = chars.length;
         int res = 0;

@@ -6,7 +6,7 @@
 
 // @lc code=start
 class Solution {
-    public boolean result = false;
+    private boolean result = false;
     public boolean exist(char[][] board, String word) {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
@@ -27,20 +27,17 @@ class Solution {
         used[row][col] = true;
         if (row - 1 >= 0 && board[row - 1][col] == word.charAt(index) && !used[row - 1][col] && !result) {
             dfs(board, word, used, row - 1, col, index + 1);
-            used[row - 1][col] = false;
         }
         if (row + 1 < board.length && board[row + 1][col] == word.charAt(index) && !used[row + 1][col] && !result) {
             dfs(board, word, used, row + 1, col, index + 1);
-            used[row + 1][col] = false;
         }
         if (col - 1 >= 0 && board[row][col - 1] == word.charAt(index) && !used[row][col - 1] && !result) {
             dfs(board, word, used, row, col - 1, index + 1);
-            used[row][col - 1] = false;
         }
         if (col + 1 < board[row].length && board[row][col + 1] == word.charAt(index) && !used[row][col + 1] && !result) {
             dfs(board, word, used, row, col + 1, index + 1);
-            used[row][col + 1] = false;
         }
+        used[row][col] = false;
     }
 }
 // @lc code=end

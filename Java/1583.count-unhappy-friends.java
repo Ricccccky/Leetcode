@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.stream.*;
 
 /*
  * @lc app=leetcode id=1583 lang=java
@@ -18,7 +17,11 @@ class Solution {
             map.put(pair[1], pair[0]);
         }
         for (int[] p : preferences) {
-            pref.add(Arrays.stream(p).boxed().collect(Collectors.toList()));
+            List<Integer> list = new ArrayList<>();
+            for (int f : p) {
+                list.add(f);
+            }
+            pref.add(list);
         }
         for (int[] pair : pairs) {
             int x = pair[0];

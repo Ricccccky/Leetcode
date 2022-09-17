@@ -1,5 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=974 lang=java
@@ -11,6 +10,7 @@ import java.util.Map;
 class Solution {
     public int subarraysDivByK(int[] A, int K) {
         int res = 0, sum = 0;
+        // Sum-Count pair
         Map<Integer, Integer> map = new HashMap<>();
         map.put(0, 1);
         for (int a : A) {

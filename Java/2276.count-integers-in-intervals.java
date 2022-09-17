@@ -26,7 +26,7 @@ class CountIntervals {
             right = Math.max(right, entry.getValue());
             map.remove(entry.getKey());
             count -= entry.getValue() - entry.getKey() + 1;
-            entry = map.higherEntry(entry.getKey());
+            entry = map.ceilingEntry(entry.getKey());
         }
         map.put(left, right);
         count += right - left + 1;

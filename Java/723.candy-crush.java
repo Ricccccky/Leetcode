@@ -12,6 +12,7 @@ class Solution {
         boolean crushed = true;
         while (crushed) {
             crushed = false;
+            // Check each column, from left to right
             for (int i = 0; i < row - 2; i++) {
                 for (int j = 0; j < col; j++) {
                     int val = Math.abs(board[i][j]);
@@ -23,6 +24,7 @@ class Solution {
                     }
                 }
             }
+            // Check each row, from top to bottom
             for (int i = 0; i < row; i++) {
                 for (int j = 0; j < col - 2; j++) {
                     int val = Math.abs(board[i][j]);
@@ -34,6 +36,7 @@ class Solution {
                     }
                 }
             }
+            // Drop
             for (int i = 0; i < col; i++) {
                 int ptr = row - 1;
                 for (int j = row - 1; j >= 0; j--) {

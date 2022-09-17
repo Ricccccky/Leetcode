@@ -12,6 +12,7 @@ class Leaderboard {
     private TreeMap<Integer, Integer> board;
     public Leaderboard() {
         map = new HashMap<>();
+        // Bucket sort
         board = new TreeMap<>((s1, s2) -> Integer.compare(s2, s1));
     }
     

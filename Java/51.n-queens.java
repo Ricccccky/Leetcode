@@ -11,7 +11,9 @@ class Solution {
     public List<List<String>> solveNQueens(int n) {
         List<List<String>> res = new ArrayList<>();
         boolean[] col = new boolean[n];
+        // top-left to bottom-right
         boolean[] diag = new boolean[2 * n - 1];
+        // top-right to bottom-left
         boolean[] back = new boolean[2 * n - 1];
         char[][] board = new char[n][n];
         
@@ -35,7 +37,7 @@ class Solution {
 
             return;
         }
-
+        // Check each columns
         for (int i = 0; i < n; i++) {
             if (col[i] || diag[row - i + n - 1] || back[row + i]) {
                 continue;

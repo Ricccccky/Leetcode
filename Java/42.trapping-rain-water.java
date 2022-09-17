@@ -8,9 +8,6 @@
 // @lc code=start
 class Solution {
     public int trap(int[] height) {
-        if (height.length == 0) {
-            return 0;
-        }
         int p1 = 0;
         int p2 = height.length - 1;
         int left = 0;

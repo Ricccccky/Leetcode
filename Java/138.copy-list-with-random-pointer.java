@@ -1,7 +1,5 @@
 import java.util.*;
 
-import org.w3c.dom.Node;
-
 /*
  * @lc app=leetcode id=138 lang=java
  *

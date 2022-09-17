@@ -25,10 +25,10 @@ class Solution {
     //     }
     //     Deque<Node> stack = new LinkedList<>();
     //     Node dummy = new Node(0, null, head, null);
-    //     Node ptr, prev = dummy;
+    //     Node prev = dummy;
     //     stack.push(head);
     //     while (!stack.isEmpty()) {
-    //         ptr = stack.pop();
+    //         Node ptr = stack.pop();
     //         ptr.prev = prev;
     //         prev.next = ptr;
     //         if (ptr.next != null) {
@@ -38,7 +38,7 @@ class Solution {
     //             stack.push(ptr.child);
     //             ptr.child = null;
     //         }
-    //         prev = prev.next;
+    //         prev = ptr;
     //     }
     //     dummy.next.prev = null;
 

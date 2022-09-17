@@ -21,9 +21,7 @@ class Solution {
         if (dp.containsKey(n)) {
             return dp.get(n);
         }
-        int result = n;
-        result = Math.min(result, n % 2 + dfs(n / 2, dp));
-        result = Math.min(result, n % 3 + dfs(n / 3, dp));
+        int result = Math.min(n % 3 + dfs(n / 3, dp), n % 2 + dfs(n / 2, dp));
         result++;
         dp.put(n, result);
 

@@ -13,28 +13,28 @@ class BrowserHistory {
     public BrowserHistory(String homepage) {
         backUrl = new LinkedList<>();
         forwardUrl = new LinkedList<>();
-        backUrl.addFirst(homepage);
+        backUrl.push(homepage);
     }
     
     public void visit(String url) {
         forwardUrl.clear();
-        backUrl.addFirst(url);
+        backUrl.push(url);
     }
     
     public String back(int steps) {
         while (backUrl.size() > 1 && steps-- > 0) {
-            forwardUrl.addFirst(backUrl.removeFirst());
+            forwardUrl.push(backUrl.pop());
         }
 
-        return backUrl.peekFirst();
+        return backUrl.peek();
     }
     
     public String forward(int steps) {
         while (!forwardUrl.isEmpty() && steps-- > 0) {
-            backUrl.addFirst(forwardUrl.removeFirst());
+            backUrl.push(forwardUrl.pop());
         }
 
-        return backUrl.peekFirst();
+        return backUrl.peek();
     }
 }
 

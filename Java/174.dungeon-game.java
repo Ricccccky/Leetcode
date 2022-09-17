@@ -7,13 +7,15 @@
 // @lc code=start
 class Solution {
     public int calculateMinimumHP(int[][] dungeon) {
-        for (int i = dungeon.length - 1; i >= 0; i--) {
-            for (int j = dungeon[0].length - 1; j >= 0; j--) {
-                if (i == dungeon.length - 1 && j == dungeon[0].length - 1) {
+        int m = dungeon.length;
+        int n = dungeon[0].length;
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 0; j--) {
+                if (i == m - 1 && j == n - 1) {
                     dungeon[i][j] = Math.max(1, 1 - dungeon[i][j]);
-                } else if (i == dungeon.length - 1) {
+                } else if (i == m - 1) {
                     dungeon[i][j] = Math.max(1, dungeon[i][j + 1] - dungeon[i][j]);
-                } else if (j == dungeon[0].length - 1) {
+                } else if (j == n - 1) {
                     dungeon[i][j] = Math.max(1, dungeon[i + 1][j] - dungeon[i][j]);
                 } else {
                     dungeon[i][j] = Math.max(1, Math.min(dungeon[i][j + 1], dungeon[i + 1][j]) - dungeon[i][j]);

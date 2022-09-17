@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=31 lang=java
@@ -10,7 +10,7 @@ import java.util.Arrays;
 class Solution {
     public void nextPermutation(int[] nums) {
         int i = nums.length - 2;
-        while (i >= 0 && nums[i + 1] <= nums[i]) {
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
             i--;
         }
 

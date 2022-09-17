@@ -26,7 +26,7 @@ class Solution {
             if (!map.containsKey(dividend) || !map.containsKey(divisor)) {
                 res[i] = -1.0;
             } else {
-                res[i] = Math.max(-1.0, dfs(map, dividend, divisor, new HashSet<>()));
+                res[i] = dfs(map, dividend, divisor, new HashSet<>());
             }
         }
 

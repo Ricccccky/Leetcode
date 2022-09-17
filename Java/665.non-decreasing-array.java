@@ -12,6 +12,7 @@ class Solution {
             if (nums[i] < nums[i - 1]) {
                 count++;
                 if (i >= 2 && nums[i - 2] > nums[i]) {
+                    // Must increase nums[i], or nums[i - 1] < nums[i - 2]
                     nums[i] = nums[i - 1];
                 } else {
                     nums[i - 1] = nums[i];

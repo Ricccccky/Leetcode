@@ -21,9 +21,18 @@ class SparseVector {
 	// Return the dotProduct of two sparse vectors
     public int dotProduct(SparseVector vec) {
         int result = 0;
-        for (var entry : vector.entrySet()) {
-            if (vec.vector.containsKey(entry.getKey())) {
-                result += entry.getValue() * vec.vector.get(entry.getKey());
+        // Loop the shorter one
+        if (this.vector.size() < vec.vector.size()) {
+            for (var entry : vector.entrySet()) {
+                if (vec.vector.containsKey(entry.getKey())) {
+                    result += entry.getValue() * vec.vector.get(entry.getKey());
+                }
+            }
+        } else {
+            for (var entry : vec.vector.entrySet()) {
+                if (this.vector.containsKey(entry.getKey())) {
+                    result += entry.getValue() * this.vector.get(entry.getKey());
+                }
             }
         }
 

@@ -1,5 +1,3 @@
-import java.util.*;
-
 /*
  * @lc app=leetcode id=289 lang=java
  *
@@ -34,7 +32,7 @@ class Solution {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 int live = countLive(board, i, j);
-                if (board[i][j] != 0 && live >=2 && live < 4) {
+                if (board[i][j] == 1 && (live == 2 || live == 3)) {
                     board[i][j] = 3;
                 }
                 if (board[i][j] == 0 && live == 3) {
@@ -51,18 +49,12 @@ class Solution {
 
     private int countLive(int[][] board, int x, int y) {
         int count = 0;
-        List<int[]> around = new ArrayList<>();
-        around.add(new int[] {1, 1});
-        around.add(new int[] {1, -1});
-        around.add(new int[] {-1, 1});
-        around.add(new int[] {-1, -1});
-        around.add(new int[] {0, 1});
-        around.add(new int[] {0, -1});
-        around.add(new int[] {1, 0});
-        around.add(new int[] {-1, 0});
+        int[][] around = new int[][] {{1, 1}, {1, -1}, {-1, 1}, {-1, -1}, {0, 1}, {0, -1}, {1, 0}, {-1, 0}};
         for (int[] change : around) {
-            if (x + change[0] >= 0 && x + change[0] < board.length && y + change[1] >= 0 && y + change[1] < board[0].length) {
-                count += board[x + change[0]][y + change[1]] & 1;
+            int i = x + change[0];
+            int j = y + change[1];
+            if (i >= 0 && i < board.length && j >= 0 && j < board[0].length) {
+                count += board[i][j] & 1;
             }
         }
         return count;

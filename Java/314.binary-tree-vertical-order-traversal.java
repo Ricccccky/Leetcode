@@ -25,8 +25,9 @@ import java.util.*;
 class Solution {
     public List<List<Integer>> verticalOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
-        Map<Integer, List<Integer>> columns = new TreeMap<>();
+        Map<Integer, List<Integer>> columns = new HashMap<>();
         Deque<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+        int min = 1, max = 0;
         queue.offer(new Pair<>(root, 0));
         while (!queue.isEmpty()) {
             Pair<TreeNode, Integer> p = queue.poll();
@@ -36,13 +37,15 @@ class Solution {
                 if (!columns.containsKey(col)) {
                     columns.put(col, new ArrayList<>());
                 }
+                min = Math.min(min, col);
+                max = Math.max(max, col);
                 columns.get(col).add(root.val);
                 queue.offer(new Pair<>(root.left, col - 1));
                 queue.offer(new Pair<>(root.right, col + 1));
             }
         }
-        for (Map.Entry<Integer, List<Integer>> e : columns.entrySet()) {
-            result.add(e.getValue());
+        for (int i = min; i <= max; i++) {
+            result.add(columns.get(i));
         }
         
         return result;

@@ -1,10 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
-
-import org.w3c.dom.Node;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=133 lang=java

@@ -17,6 +17,7 @@ class Solution {
         }
     }
 
+    // find the position of first element or the position of insertion
     public int searchPosition(int[] nums, int target) {
         int l = 0;
         int r = nums.length;

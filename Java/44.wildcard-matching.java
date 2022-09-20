@@ -7,18 +7,22 @@
 // @lc code=start
 class Solution {
     public boolean isMatch(String s, String p) {
-        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
+        int m = s.length();
+        int n = p.length();
+        boolean[][] dp = new boolean[m + 1][n + 1];
+        // dp[i][j]: if s[:i] and p[:j] match
         dp[0][0] = true;
-        for (int i = 0; i < p.length(); i++) {
+        for (int i = 0; i < n; i++) {
             if (p.charAt(i) == '*') {
+                // everything after '*' can match
                 dp[0][i + 1] = true;
             } else {
                 break;
             }
         }
         
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = 0; j < p.length(); j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 if (s.charAt(i) == p.charAt(j) || p.charAt(j) == '?') {
                     dp[i + 1][j + 1] = dp[i][j];
                 }
@@ -28,7 +32,8 @@ class Solution {
                 }
             }
         }
-        return dp[s.length()][p.length()];
+        
+        return dp[m][n];
     }
 }
 // @lc code=end

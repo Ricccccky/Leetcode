@@ -7,6 +7,7 @@
 // @lc code=start
 class Solution {
     public int minDistance(String word1, String word2) {
+        // get the length of the longest common subsequence, the rest should be deleted
         int m = word1.length();
         int n = word2.length();
         int[][] dp = new int[m + 1][n + 1];

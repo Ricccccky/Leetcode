@@ -1,10 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import sun.jvm.hotspot.gc.shared.ContiguousSpace;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=18 lang=java
@@ -20,54 +14,54 @@ class Solution {
             return result;
         }
 
-        Map<Integer, List<List<Integer>>> numMap = new HashMap<>();
+        Map<Long, List<int[]>> numMap = new HashMap<>();
         Arrays.sort(nums);
-        if (nums[0] * 4 > target || nums[nums.length - 1] * 4 < target) {
-            return result;
-        }
 
+        // get all 2sum from nums, store the 2sum-index pair pairs in numMap, index[0] < index[1]
         for (int i = nums.length - 1; i > 0; i--) {
+            // skip repeated number
             if (i < nums.length - 1 && nums[i] == nums[i + 1]) {
                 continue;
             }
-
-            for (int j = i - 1; j > -1; j--) {
+            for (int j = i - 1; j >= 0; j--) {
+                // skip repeated number
                 if (j < i - 1 && nums[j] == nums[j + 1]) {
                     continue;
                 }
-                List<List<Integer>> temp;
-                if (!numMap.containsKey(nums[i] + nums[j])) {
-                    temp = new ArrayList<>();
-                    temp.add(Arrays.asList(j, i));
-                    numMap.put(nums[i] + nums[j], temp);
+                long sum = nums[i] + nums[j];
+                if (!numMap.containsKey(sum)) {
+                    List<int[]> temp = new ArrayList<>();
+                    temp.add(new int[] {j ,i});
+                    numMap.put(sum, temp);
                 } else {
-                    temp = numMap.get(nums[i] + nums[j]);
-                    temp.add(Arrays.asList(j, i));
-                    numMap.put(nums[i] + nums[j], temp);
+                    List<int[]> temp = numMap.get(sum);
+                    temp.add(new int[] {j ,i});
+                    numMap.put(sum, temp);
                 }
             }
         }
-        System.out.println(numMap);
 
         for (int i = 0; i < nums.length - 3; i++) {
+            // skip repeated number
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
             for (int j = i + 1; j < nums.length - 2; j++) {
+                // skip repeated number
                 if (j > i + 1 && nums[j] == nums[j - 1]) {
                     continue;
                 }
-                int diff = target - nums[i] - nums[j];
-                System.out.println(diff);
+                long diff = (long)target - nums[i] - nums[j];
                 if (numMap.containsKey(diff)) {
-                    for (List<Integer> pair : numMap.get(diff)) {
-                        if (pair.get(0) > j) {
-                            result.add(Arrays.asList(nums[i], nums[j], nums[pair.get(0)], nums[pair.get(1)]));
+                    for (int[] pair : numMap.get(diff)) {
+                        if (pair[0] > j) {
+                            result.add(Arrays.asList(nums[i], nums[j], nums[pair[0]], nums[pair[1]]));
                         }
                     }
                 }
             }
         }
+
         return result;
     }
 }

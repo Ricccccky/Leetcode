@@ -13,13 +13,15 @@ class Solution {
         //     if (nums[mid] == target) {
         //         return mid;
         //     }
-
+        //     // low and mid are on the same partition
         //     if (nums[low] <= nums[mid]) {
+        //         // target is between low and mid
         //         if (nums[low] <= target && nums[mid] >= target) {
         //             high = mid;
         //         } else {
         //             low = mid + 1;
         //         }
+        //     // low and mid are on the different partition, mid is on the same partition with high
         //     } else {
         //         if (nums[mid] <= target && nums[high] >= target) {
         //             low = mid;

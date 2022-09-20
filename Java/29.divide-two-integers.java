@@ -10,7 +10,7 @@ class Solution {
         if (dividend == Integer.MIN_VALUE && divisor == -1) {
             return Integer.MAX_VALUE;
         }
-        int HALF_MIN_VALUE = -1073741824;
+        int HALF_MIN_VALUE = Integer.MIN_VALUE / 2;
         int negatives = 2;
         int res = 0;
         if (dividend > 0) {

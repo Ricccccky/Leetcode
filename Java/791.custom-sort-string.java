@@ -1,5 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=791 lang=java
@@ -14,7 +13,7 @@ class Solution {
             return T;
         }
         StringBuilder result = new StringBuilder();
-        HashMap<Character, Integer> temp = new HashMap<>();
+        Map<Character, Integer> temp = new HashMap<>();
         for (int i = 0; i < T.length(); i++) {
             temp.put(T.charAt(i), temp.getOrDefault(T.charAt(i), 0) + 1);
         }
@@ -27,6 +26,7 @@ class Solution {
             }
             temp.remove(S.charAt(i));
         }
+        // Append all letters not in order to the tail
         for (Map.Entry<Character,Integer> k : temp.entrySet()) {
             for (int i = 0; i < k.getValue(); i++) {
                 result.append(k.getKey());

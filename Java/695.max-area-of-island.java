@@ -23,34 +23,28 @@ class Solution {
 
         // Iterative
         int result = 0;
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
+        int m = grid.length, n = grid[0].length;
+        int[][] dirs = new int[][] {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 if (grid[i][j] == 1) {
                     int area = 0;
                     Queue<int[]> queue = new LinkedList<>();
                     queue.offer(new int[] {i, j});
                     while (!queue.isEmpty()) {
-                        int len = queue.size();
-                        for (int k = 0; k < len; k++) {
-                            int[] pos = queue.poll();
-                            int x = pos[0];
-                            int y = pos[1];
-                            if (grid[x][y] == -1) {
-                                continue;
-                            }
-                            grid[x][y] = -1;
-                            area++;
-                            if (x + 1 < grid.length && grid[x + 1][y] == 1) {
-                                queue.offer(new int[] {x + 1, y});
-                            }
-                            if (x - 1 >= 0 && grid[x - 1][y] == 1) {
-                                queue.offer(new int[] {x - 1, y});
-                            }
-                            if (y + 1 < grid[0].length && grid[x][y + 1] == 1) {
-                                queue.offer(new int[] {x, y + 1});
-                            }
-                            if (y - 1 >= 0 && grid[x][y - 1] == 1) {
-                                queue.offer(new int[] {x, y - 1});
+                        int[] pos = queue.poll();
+                        int x = pos[0];
+                        int y = pos[1];
+                        if (grid[x][y] == -1) {
+                            continue;
+                        }
+                        grid[x][y] = -1;
+                        area++;
+                        for (int[] dir : dirs) {
+                            int newX = x + dir[0];
+                            int newY = y + dir[1];
+                            if (newX >= 0 && newX < m && newY >= 0 && newY < n && grid[newX][newY] == 1) {
+                                queue.offer(new int[] {newX, newY});
                             }
                         }
                     }

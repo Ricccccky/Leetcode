@@ -7,9 +7,6 @@
 // @lc code=start
 class Solution {
     public int maxProfit(int[] prices) {
-        if (prices.length == 0) {
-            return 0;
-        }
         int first_hold = -prices[0], second_hold = -prices[0];
         int first_no_hold = 0, second_no_hold = 0;
         for (int price : prices) {

@@ -24,13 +24,13 @@ import java.util.*;
  */
 class Solution {
     public int pathSum(TreeNode root, int sum) {
-        HashMap<Integer, Integer> sumHist = new HashMap<>();
-        sumHist.put(0, 1);
+        Map<Long, Integer> sumHist = new HashMap<>();
+        sumHist.put(0L, 1);
 
         return findPath(root, sumHist, 0, sum);
     }
 
-    public int findPath(TreeNode root, HashMap<Integer, Integer> sumHist, int curSum, int sum) {
+    public int findPath(TreeNode root, Map<Long, Integer> sumHist, long curSum, int sum) {
         if (root == null) {
             return 0;
         }

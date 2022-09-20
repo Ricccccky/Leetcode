@@ -27,6 +27,7 @@ class Solution {
             while (len-- > 0) {
                 String top = queue.poll();
                 char[] arr = top.toCharArray();
+                // find all transformable word with top
                 for (int i = 0; i < arr.length; i++) {
                     char old = arr[i];
                     for (char c = 'a'; c <= 'z'; c++) {
@@ -47,6 +48,7 @@ class Solution {
                     arr[i] = old;
                 }
             }
+            // remove cycle
             words.removeAll(removableWords);
         }
         if (!map.containsKey(endWord)) {
@@ -64,6 +66,7 @@ class Solution {
             result.add(newPath);
             return;
         }
+        // backtracking from endWord to beginWord
         for (String word : map.get(endWord)) {
             path.add(word);
             dfs(map, result, path, beginWord, word);

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /*
  * @lc app=leetcode id=417 lang=java
  *
@@ -30,7 +32,7 @@ class Solution {
             queueP.add(new int[] {0, i});
             queueA.add(new int[] {row - 1, i});
         }
-        
+        // BFS from boundaries
         bfs(matrix, visitedP, queueP);
         bfs(matrix, visitedA, queueA);
         

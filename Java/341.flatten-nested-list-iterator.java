@@ -1,6 +1,4 @@
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=341 lang=java
@@ -37,7 +35,7 @@ public class NestedIterator implements Iterator<Integer> {
     @Override
     public Integer next() {
         if (hasNext()) {
-            return stack.removeFirst().getInteger();
+            return stack.pop().getInteger();
         }
 
         return null;
@@ -46,10 +44,10 @@ public class NestedIterator implements Iterator<Integer> {
     @Override
     public boolean hasNext() {
         while (!stack.isEmpty()) {
-            if (stack.peekFirst().isInteger()) {
+            if (stack.peek().isInteger()) {
                 return true;
             }
-            fillStack(stack.removeFirst().getList());
+            fillStack(stack.pop().getList());
         }
 
         return false;
@@ -57,7 +55,7 @@ public class NestedIterator implements Iterator<Integer> {
 
     private void fillStack(List<NestedInteger> list) {
         for (int i = list.size() - 1; i >= 0; i--) {
-            stack.addFirst(list.get(i));
+            stack.push(list.get(i));
         }
     }
 }

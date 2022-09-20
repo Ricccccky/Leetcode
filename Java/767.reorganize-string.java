@@ -22,11 +22,13 @@ class Solution {
         if (max > (n + 1) / 2) {
             return "";
         }
+        // insert the maximum letters to even positions
         while (freq[maxChar] > 0) {
             arr[ptr] = (char)(maxChar + 'a');
             freq[maxChar]--;
             ptr += 2;
         }
+        // insert the rest letters
         for (int i = 0; i < freq.length; i++) {
             while (freq[i]-- > 0) {
                 if (ptr >= n) {

@@ -33,15 +33,18 @@ class Solution {
             }
             dummy.isWord = true;
         }
-        for (int i = 1; i <= n; i++) {
+        for (int i = 0; i < n; i++) {
+            if (!dp[i]) {
+                continue;
+            }
             Trie dummy = root;
-            for (int j = i - 1; j < n; j++) {
+            for (int j = i; j < n; j++) {
                 char c = s.charAt(j);
                 if (dummy.child[c - 'a'] == null) {
                     break;
                 }
                 dummy = dummy.child[c - 'a'];
-                if (dummy.isWord && dp[i - 1]) {
+                if (dummy.isWord && dp[i]) {
                     dp[j + 1] = true;
                 }
             }

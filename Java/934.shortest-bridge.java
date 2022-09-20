@@ -1,5 +1,4 @@
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=934 lang=java
@@ -17,6 +16,7 @@ class Solution {
         int col = A[0].length;
         boolean found = false;
         Queue<int[]> queue = new LinkedList<>();
+        // DFS flip an island to all -1's
         for (int i = 0; i < row; i++) {
             if (found) {
                 break;
@@ -29,6 +29,7 @@ class Solution {
                 }
             }
         }
+        // BFS to expand the island found above
         while (!queue.isEmpty()) {
             int len = queue.size();
             while (len-- > 0) {

@@ -1,5 +1,4 @@
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=349 lang=java
@@ -10,18 +9,19 @@ import java.util.Set;
 // @lc code=start
 class Solution {
     public int[] intersection(int[] nums1, int[] nums2) {
+        List<Integer> result = new ArrayList<>();
         Set<Integer> set = new HashSet<>();
-        Set<Integer> res = new HashSet<>();
         for (int num : nums1) {
             set.add(num);
         }
         for (int num : nums2) {
             if (set.contains(num)) {
-                res.add(num);
+                result.add(num);
+                set.remove(num);
             }
         }
 
-        return res.stream().mapToInt(Integer::valueOf).toArray();
+        return result.stream().mapToInt(Integer::intValue).toArray();
     }
 }
 // @lc code=end

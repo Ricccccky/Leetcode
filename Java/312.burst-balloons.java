@@ -14,11 +14,13 @@ class Solution {
             n++;
         }
         arr[0] = arr[n++] = 1;
+        // Maximum coins get from start to end
         int[][] dp = new int[n][n];
         for (int len = 2; len < n; len++) {
             for (int start = 0; start < n - len; start++) {
                 int end = start + len;
                 for (int i = start + 1; i < end; i++) {
+                    // see i as the last balloon between start and end
                     dp[start][end] = Math.max(dp[start][end],
                             arr[start] * arr[i] * arr[end] + dp[start][i] + dp[i][end]);
                 }

@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=212 lang=java
@@ -10,13 +9,31 @@ import java.util.List;
 // @lc code=start
 class Solution {
     class TrieNode {
-        TrieNode[] next = new TrieNode[26];
+        TrieNode[] next;
         String word;
+
+        public TrieNode() {
+            next = new TrieNode[26];
+        }
+
+        public TrieNode(String[] words) {
+            next = new TrieNode[26];
+            for (String word : words) {
+                TrieNode p = this;
+                for (char c : word.toCharArray()) {
+                    if (p.next[c - 'a'] == null) {
+                        p.next[c - 'a'] = new TrieNode();
+                    }
+                    p = p.next[c - 'a'];
+                }
+                p.word = word;
+            }
+        }
     }
 
     public List<String> findWords(char[][] board, String[] words) {
         List<String> result = new ArrayList<>();
-        TrieNode root = TrieNodeBuilder(words);
+        TrieNode root = new TrieNode(words);
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++){
                 backtracking(board, i, j, root, result);
@@ -25,46 +42,27 @@ class Solution {
         return result;
     }
 
-    private void backtracking(char[][] board, int row, int col, TrieNode p, List<String> result) {
+    private void backtracking(char[][] board, int row, int col, TrieNode root, List<String> result) {
         char cur = board[row][col];
-        if (cur == '*' || p.next[cur - 'a'] == null) {
+        if (cur == '*' || root.next[cur - 'a'] == null) {
             return;
         }
-        p = p.next[cur - 'a'];
-        if (p.word != null) {
-            result.add(p.word);
-            p.word = null;
+        root = root.next[cur - 'a'];
+        if (root.word != null) {
+            result.add(root.word);
+            root.word = null;
         }
 
         board[row][col] = '*';
-        if (row > 0) {
-            backtracking(board, row - 1, col, p, result);
-        }
-        if (row < board.length - 1) {
-            backtracking(board, row + 1, col, p, result);
-        }
-        if (col > 0) {
-            backtracking(board, row, col - 1, p, result);
-        }
-        if (col < board[0].length - 1) {
-            backtracking(board, row, col + 1, p, result);
+        int[][] dirs = new int[][] {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        for (int[] dir : dirs) {
+            int x = row + dir[0];
+            int y = col + dir[1];
+            if (x >= 0 && x < board.length && y >= 0 && y < board[0].length) {
+                backtracking(board, x, y, root, result);
+            }
         }
         board[row][col] = cur;
-    }
-
-    private TrieNode TrieNodeBuilder(String[] words) {
-        TrieNode root = new TrieNode();
-        for (String word : words) {
-            TrieNode p = root;
-            for (char c : word.toCharArray()) {
-                if (p.next[c - 'a'] == null) {
-                    p.next[c - 'a'] = new TrieNode();
-                }
-                p = p.next[c - 'a'];
-            }
-            p.word = word;
-        }
-        return root;
     }
 }
 // @lc code=end

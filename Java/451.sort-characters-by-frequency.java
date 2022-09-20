@@ -9,6 +9,7 @@ import java.util.*;
 // @lc code=start
 class Solution {
     public String frequencySort(String s) {
+        // bucket sorting
         Map<Character, Integer> map = new HashMap<>();
         List<Character>[] buckets = new ArrayList[s.length() + 1];
         StringBuilder sb = new StringBuilder();

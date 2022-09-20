@@ -10,8 +10,8 @@ class Solution {
         int hold = -prices[0];
         int no_hold = 0;
         for (int price : prices) {
-            hold = Math.max(hold, -price);
             no_hold = Math.max(no_hold, hold + price);
+            hold = Math.max(hold, -price);
         }
         
         return no_hold;

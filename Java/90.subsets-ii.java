@@ -8,6 +8,7 @@ import java.util.*;
 
 // @lc code=start
 class Solution {
+    // O(n2^n)
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> res = new ArrayList<>();

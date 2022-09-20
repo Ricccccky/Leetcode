@@ -17,6 +17,7 @@ class Solution {
                 farthest = max;
             }
         }
+        
         return result;
     }
 }

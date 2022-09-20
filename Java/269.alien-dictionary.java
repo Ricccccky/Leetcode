@@ -1,9 +1,4 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=269 lang=java
@@ -24,25 +19,33 @@ class Solution {
             for (j = 0; j < words[i].length(); j++) {
                 char c = words[i].charAt(j);
                 if (!used && i > 0 && j < words[i - 1].length() && c != words[i - 1].charAt(j)) {
-                    map.putIfAbsent(words[i - 1].charAt(j), new HashSet<>());
+                    /*
+                     * We can compare the jth letter between words[i] and words[i - 1]
+                     * only the first different comparable letter can be compared
+                     * After that, we shoud dicard words[i] and move to words[i + 1]
+                     * jth letter in words[i - 1] prior to jth letter in words[i]
+                     */
                     if (!map.get(words[i - 1].charAt(j)).contains(c)) {
                         inDegree[c - 'a']++;
+                        map.get(words[i - 1].charAt(j)).add(c);
                     }
-                    map.get(words[i - 1].charAt(j)).add(c);
                     used = true;
                 }
                 map.putIfAbsent(c, new HashSet<>());
             }
+            // words[i] is shorter than words[i - 1] and no letter comparsion, order conflict
             if (i > 0 && j < words[i - 1].length() && !used) {
                 return "";
             }
         }
+        // put all letter with zero in-degree to the queue as start
         for (Map.Entry<Character, Set<Character>> entry : map.entrySet()) {
-            if (inDegree[entry.getKey() - 'a'] == 0 && entry.getValue() != null) {
+            if (inDegree[entry.getKey() - 'a'] == 0) {
                 sb.append(entry.getKey());
                 queue.offer(entry.getKey());
             }
         }
+        // topological-sort
         while (!queue.isEmpty()) {
             char c = queue.poll();
             for (Character next : map.get(c)) {

@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Stack;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=332 lang=java
@@ -14,23 +10,20 @@ import java.util.Stack;
 class Solution {
     public List<String> findItinerary(List<List<String>> tickets) {
         List<String> result = new ArrayList<>();
-        HashMap<String, PriorityQueue<String>> adjTable = new HashMap<>();
+        Map<String, PriorityQueue<String>> adjTable = new HashMap<>();
+        Deque<String> stack = new LinkedList<>();
         for (List<String> ticket : tickets) {
-            if (adjTable.containsKey(ticket.get(0))) {
-                adjTable.get(ticket.get(0)).add(ticket.get(1));
-            } else {
-                PriorityQueue<String> temp = new PriorityQueue<>();
-                temp.add(ticket.get(1));
-                adjTable.put(ticket.get(0), temp);
-            }
+            adjTable.putIfAbsent(ticket.get(0), new PriorityQueue<>());
+            adjTable.get(ticket.get(0)).offer(ticket.get(1));
         }
-        Stack<String> temp = new Stack<>();
-        temp.push("JFK");
-        while (!temp.isEmpty()) {
-            if (adjTable.containsKey(temp.peek()) && !adjTable.get(temp.peek()).isEmpty()) {
-                temp.push(adjTable.get(temp.peek()).poll());
+        stack.push("JFK");
+        // DFS
+        while (!stack.isEmpty()) {
+            String top = stack.peek();
+            if (adjTable.containsKey(top) && !adjTable.get(top).isEmpty()) {
+                stack.push(adjTable.get(top).poll());
             } else {
-                result.add(0, temp.pop());
+                result.add(0, stack.pop());
             }
         }
         return result;

@@ -22,6 +22,7 @@
  */
 class Solution {
     public TreeNode deleteNode(TreeNode root, int key) {
+        // Search for the node to remove
         if (!isNode(root, key)) {
             return root;
         }
@@ -32,6 +33,7 @@ class Solution {
             } else if (root.right == null) {
                 return root.left;
             }
+            // flooring the root
             TreeNode precursor = findMax(root.left);
             precursor.left = deletePrecursor(root.left);
             precursor.right = root.right;
@@ -46,16 +48,14 @@ class Solution {
     }
 
     public TreeNode findMax(TreeNode root) {
-        while (root != null) {
-            if (root.right == null) {
-                return root;
-            }
+        while (root.right != null) {
             root = root.right;
         }
         return root;
     }
 
     public TreeNode deletePrecursor(TreeNode root) {
+        // find the left child of precursor and connect it to the right of precursor's parent
         if (root.right == null) {
             return root.left;
         }

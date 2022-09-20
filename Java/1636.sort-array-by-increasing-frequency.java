@@ -1,6 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=1636 lang=java
@@ -10,11 +8,11 @@ import java.util.PriorityQueue;
 
 // @lc code=start
 class Solution {
+    // O(nlogn)
     public int[] frequencySort(int[] nums) {
         int[] res = new int[nums.length];
         Map<Integer, Integer> map = new HashMap<>();
-        PriorityQueue<Integer> queue = new PriorityQueue<>((x, y) -> map.get(x) == map.get(y) ? 
-        Integer.compare(y, x) : Integer.compare(map.get(x), map.get(y)));
+        PriorityQueue<Integer> queue = new PriorityQueue<>((x, y) -> map.get(x) == map.get(y) ? y - x : map.get(x) - map.get(y));
         for (int num : nums) {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }

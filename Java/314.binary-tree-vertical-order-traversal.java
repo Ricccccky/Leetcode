@@ -27,24 +27,22 @@ class Solution {
         List<List<Integer>> result = new ArrayList<>();
         Map<Integer, List<Integer>> columns = new HashMap<>();
         Deque<Pair<TreeNode, Integer>> queue = new LinkedList<>();
-        int min = 1, max = 0;
+        int left = 1, right = 0;
         queue.offer(new Pair<>(root, 0));
         while (!queue.isEmpty()) {
             Pair<TreeNode, Integer> p = queue.poll();
             root = p.getKey();
             int col = p.getValue();
             if (root != null) {
-                if (!columns.containsKey(col)) {
-                    columns.put(col, new ArrayList<>());
-                }
-                min = Math.min(min, col);
-                max = Math.max(max, col);
+                columns.putIfAbsent(col, new ArrayList<>());
+                left = Math.min(left, col);
+                right = Math.max(right, col);
                 columns.get(col).add(root.val);
                 queue.offer(new Pair<>(root.left, col - 1));
                 queue.offer(new Pair<>(root.right, col + 1));
             }
         }
-        for (int i = min; i <= max; i++) {
+        for (int i = left; i <= right; i++) {
             result.add(columns.get(i));
         }
         

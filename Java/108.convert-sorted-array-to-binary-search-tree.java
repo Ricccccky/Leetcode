@@ -23,8 +23,20 @@ class Solution {
         }
         int mid = nums.length / 2;
         TreeNode root = new TreeNode(nums[mid]);
-        root.left = sortedArrayToBST(Arrays.copyOf(nums, mid));
-        root.right = sortedArrayToBST(Arrays.copyOfRange(nums, mid + 1, nums.length));
+        root.left = sortedArrayToBST(nums, 0, mid);
+        root.right = sortedArrayToBST(nums, mid + 1, nums.length);
+        
+        return root;
+    }
+
+    private TreeNode sortedArrayToBST(int[] nums, int start, int end) {
+        if (start >= end) {
+            return null;
+        }
+        int mid = start + (end - start) / 2;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = sortedArrayToBST(nums, start, mid);
+        root.right = sortedArrayToBST(nums, mid + 1, end);
         
         return root;
     }

@@ -23,8 +23,10 @@ class Solution {
                 
                 if (p.charAt(j) == '*') {
                     if (p.charAt(j - 1) != s.charAt(i) && p.charAt(j - 1) != '.') {
+                        // '*' doesn't work
                         dp[i + 1][j + 1] = dp[i + 1][j - 1];
                     } else {
+                        // '*' works, matches zero or more of the preceding element || not match
                         dp[i + 1][j + 1] = (dp[i][j+1] || dp[i+1][j-1]);
                     }
                 }

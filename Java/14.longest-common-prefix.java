@@ -13,6 +13,7 @@ class Solution {
 
         String result = strs[0];
         for (int i = 1; i < strs.length; i++) {
+            // find the shortest str
             if (strs[i].length() < result.length()) {
                 result = strs[i];
             }
@@ -22,6 +23,7 @@ class Solution {
                 result = result.substring(0, result.length() - 1);
             }
         }
+        
         return result;
     }
 }

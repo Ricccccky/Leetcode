@@ -21,6 +21,7 @@ class Solution {
                 result.add(cur);
             }
         }
+        
         return result.toArray(new int[result.size()][]);
     }
 }

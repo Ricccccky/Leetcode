@@ -13,7 +13,7 @@ class Leaderboard {
     public Leaderboard() {
         map = new HashMap<>();
         // Bucket sort
-        board = new TreeMap<>((s1, s2) -> Integer.compare(s2, s1));
+        board = new TreeMap<>((s1, s2) -> s2 - s1);
     }
     
     public void addScore(int playerId, int score) {

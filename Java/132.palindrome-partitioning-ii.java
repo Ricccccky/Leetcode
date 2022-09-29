@@ -34,7 +34,6 @@ class Solution {
                     dp[j][i] = true;
                     if (j == 0) {
                         cuts[i] = 0;
-                        break;
                     } else {
                         cuts[i] = Math.min(cuts[i], cuts[j - 1] + 1);
                     }

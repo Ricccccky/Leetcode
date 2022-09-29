@@ -16,29 +16,27 @@ class Solution {
             return false;
         }
 
-        char[] data = s.toCharArray();
-        Stack<Character> temp = new Stack<>();
-        for (int i = 0; i < data.length; i++) {
-            if (data[i] == '(' || data[i] == '{' || data[i] == '[') {
-                temp.push(data[i]);
-            }
-            if (data[i] == ')' || data[i] == '}' || data[i] == ']') {
-                if (temp.isEmpty()) {
+        Deque<Character> stack = new LinkedList<>();
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);
+            } else {
+                if (stack.isEmpty()) {
                     return false;
                 }
-                char top = temp.pop();
-                if (data[i] == ')' && top == '(') {
+                char top = stack.pop();
+                if (top == '(' && c == ')') {
                     continue;
-                } else if (data[i] == '}' && top == '{') {
+                } else if (top == '[' && c == ']') {
                     continue;
-                } else if (data[i] == ']' && top == '[') {
+                } else if (top == '{' && c == '}') {
                     continue;
                 } else {
                     return false;
                 }
             }
         }
-        if (!temp.isEmpty()) {
+        if (!stack.isEmpty()) {
             return false;
         }
         return true;

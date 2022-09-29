@@ -25,7 +25,6 @@ class Solution {
         if (left > right) {
             backtracking(result, temp + ")", left, right + 1, n);
         }
-        return;
     }
 }
 // @lc code=end

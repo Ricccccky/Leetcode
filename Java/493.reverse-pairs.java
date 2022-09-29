@@ -17,6 +17,7 @@ class Solution {
             int mid = start + (end - start) / 2;
             int count = reversePairs(nums, start, mid) + reversePairs(nums, mid + 1, end);
             int j = mid + 1;
+            // nums[start:mid] and nums[mid + 1:end] are sorted in non-decreasing order separately
             for (int i = start; i <= mid; i++) {
                 while (j <= end && nums[i] > 2L * nums[j]) {
                     j++;
@@ -38,30 +39,25 @@ class Solution {
         for (int i = 0; i < num_r; i++) {
             R[i] = nums[mid + i + 1];
         }
+        // Merge sorted arrays
         int i = 0, j = 0, k = start;
         for (; k <= end; k++) {
             if (i >= num_l || j >= num_r) {
                 break;
             }
             if (L[i] > R[j]) {
-                nums[k] = R[j];
-                j++;
+                nums[k] = R[j++];
             } else {
-                nums[k] = L[i];
-                i++;
+                nums[k] = L[i++];
             }
         }
         if (i < num_l) {
             while (k <= end) {
-                nums[k] = L[i];
-                i++;
-                k++;
+                nums[k++] = L[i++];
             }
         } else if (j < num_r) {
             while (k <= end) {
-                nums[k] = R[j];
-                j++;
-                k++;
+                nums[k++] = R[j++];
             }
         }
     }

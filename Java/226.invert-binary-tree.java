@@ -28,9 +28,10 @@ class Solution {
 
         invertTree(root.left);
         invertTree(root.right);
-        TreeNode head = root.left;
+        TreeNode temp = root.left;
         root.left = root.right;
-        root.right = head;
+        root.right = temp;
+
         return root;
     }
 }

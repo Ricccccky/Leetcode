@@ -15,15 +15,11 @@ class Solution {
         for (String num : nums) {
             if (target.startsWith(num)) {
                 String suffix = target.substring(num.length());
-                if (map.containsKey(suffix)) {
-                    result += map.get(suffix);
-                }
+                result += map.getOrDefault(suffix, 0);
             }
             if (target.endsWith(num)) {
                 String prefix = target.substring(0, target.length() - num.length());
-                if (map.containsKey(prefix)) {
-                    result += map.get(prefix);
-                }
+                result += map.getOrDefault(prefix, 0);
             }
             map.put(num, map.getOrDefault(num, 0) + 1);
         }

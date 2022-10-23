@@ -18,9 +18,7 @@ class Solution {
             }
             temp.put(s.charAt(p2), p2);
             p2++;
-            if (p2 - p1 > result) {
-                result = p2 - p1;
-            }
+            result = Math.max(p2 - p1, result);
         }
         
         return result;

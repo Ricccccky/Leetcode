@@ -23,6 +23,7 @@ class Solution {
             nums[j] = nums[i];
             nums[i] = temp;
             int low = i + 1, high = nums.length - 1;
+            // Reorder the digits after i to minimum order
             while (low < high) {
                 temp = nums[low];
                 nums[low] = nums[high];

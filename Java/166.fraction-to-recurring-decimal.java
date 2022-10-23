@@ -1,6 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.*;
 /*
  * @lc app=leetcode id=166 lang=java
  *
@@ -15,7 +13,7 @@ class Solution {
         }
         StringBuilder res = new StringBuilder();
         Map<Long, Integer> map = new HashMap<>();
-        if (numerator < 0 ^ denominator < 0) {
+        if ((numerator > 0 && denominator < 0) || (numerator < 0 && denominator > 0)) {
             res.append("-");
         }
         long dividend = Math.abs(Long.valueOf(numerator));

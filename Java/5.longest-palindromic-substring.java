@@ -31,6 +31,7 @@ class Solution {
                 }
             }
         }
+        
         return s.substring(start, start + len);
     }
 }

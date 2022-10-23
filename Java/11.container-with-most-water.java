@@ -19,6 +19,7 @@ class Solution {
                 p1++;
             }
         }
+        
         return result;
     }
 }

@@ -9,7 +9,9 @@ class Solution {
     public int countSubstrings(String s) {
         int res = 0;
         for (int i = 0; i < s.length(); i++) {
+            // odd length
             res += count(s, i, i);
+            // even length
             res += count(s, i, i + 1);
         }
 
@@ -50,6 +52,7 @@ class Solution {
             }
             start--;
             end++;
+            // layer
             res++;
         }
 

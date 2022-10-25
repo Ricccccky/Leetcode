@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
-
-import org.w3c.dom.Node;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=1522 lang=java
@@ -46,9 +43,6 @@ class Solution {
     }
 
     private int dfs(Node root, Map<Node, Integer> map) {
-        if (root.children.size() == 0) {
-            return 1;
-        }
         int first = 0;
         int second = 0;
         for (Node node : root.children) {

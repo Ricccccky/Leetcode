@@ -28,10 +28,12 @@ class Solution {
         }
         for (int i = 1; i <= maxChoosableInteger; i++) {
             if ((used & 1 << i) > 0) {
+                // skip used integer
                 continue;
             }
             used |= 1 << i;
             if (!canIWin(maxChoosableInteger, desiredTotal - i, dp, used)) {
+                // I choose i, then the opponent cannot win anyway
                 used &= Integer.MAX_VALUE ^ 1 << i;
                 dp.put(used, true);
                 return true;

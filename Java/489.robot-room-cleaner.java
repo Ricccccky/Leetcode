@@ -41,6 +41,7 @@ class Solution {
             int next_y = y_offset + dirs[next_dir][1];
             if (!visited.contains(new Pair<>(next_x, next_y)) && robot.move()) {
                 backtracking(robot, visited, next_x, next_y, next_dir);
+                // Go back and reset direction
                 robot.turnRight();
                 robot.turnRight();
                 robot.move();

@@ -1,4 +1,4 @@
-import java.util.Random;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=528 lang=java
@@ -34,6 +34,7 @@ class Solution {
                 r = mid;
             }
         }
+        
         return l;
     }
 }

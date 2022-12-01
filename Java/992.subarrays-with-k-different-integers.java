@@ -1,5 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=992 lang=java
@@ -31,8 +30,9 @@ class Solution {
                 }
                 p1++;
             }
-            result += p2 - p1 + 1;
+            result += p2 - p1;
         }
+        
         return result;
     }
 }

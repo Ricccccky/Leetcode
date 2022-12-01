@@ -26,6 +26,7 @@ class Solution {
                 result.add(0, stack.pop());
             }
         }
+        
         return result;
     }
 }

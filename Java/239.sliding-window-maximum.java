@@ -29,6 +29,7 @@ class Solution {
             result[head]= Math.max(left[i + k - 1], right[i]);
             head++;
         }
+        
         return result;
     }
 }

@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /*
  * @lc app=leetcode id=670 lang=java
@@ -26,6 +23,7 @@ class Solution {
                 }
             }
         }
+        
         return num;
     }
 }

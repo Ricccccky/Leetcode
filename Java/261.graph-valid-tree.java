@@ -25,7 +25,8 @@ class Solution {
                 count++;
             }
         }
-        return count <= 1;
+
+        return count == 1;
     }
 
     private int find(int[] parents, int node) {

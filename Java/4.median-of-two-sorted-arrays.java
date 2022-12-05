@@ -57,6 +57,7 @@ class Solution {
                 return (double)(left_max + right_min) / 2.0;
             }
         }
+        
         return -1;
     }
 }

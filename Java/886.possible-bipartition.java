@@ -1,9 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=886 lang=java
@@ -41,6 +36,7 @@ class Solution {
                 }
             }
         }
+        
         return true;
     }
 }

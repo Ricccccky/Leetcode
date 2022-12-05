@@ -23,6 +23,7 @@ class Solution {
                 }
             }
         }
+        
         return dp[s.length()][t.length()];
     }
 }

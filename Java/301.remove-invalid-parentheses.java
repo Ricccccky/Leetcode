@@ -23,6 +23,7 @@ class Solution {
                 found = true;
             }
             if (found) {
+                // Minimum number of remove
                 continue;
             }
             for (int i = 0; i < s.length(); i++) {

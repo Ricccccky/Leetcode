@@ -1,3 +1,5 @@
+import java.util.*;
+
 /*
  * @lc app=leetcode id=1352 lang=java
  *
@@ -6,7 +8,6 @@
 
 // @lc code=start
 class ProductOfNumbers {
-    
     private Map<Integer, Integer> map;
     public ProductOfNumbers() {
         map = new HashMap<>();
@@ -28,6 +29,7 @@ class ProductOfNumbers {
         if (k >= map.size()) {
             return 0;
         }
+        
         return map.get(map.size() - 1) / map.get(map.size() - 1 - k);
     }
 }

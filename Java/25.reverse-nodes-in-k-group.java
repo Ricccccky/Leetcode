@@ -23,7 +23,6 @@ class Solution {
             n++;
             ptr = ptr.next;
         }
-        System.out.println(n);
         ptr = new ListNode(0);
         ptr.next = head;
         for (ListNode prev = ptr, tail = head; n >= k; n -=k) {

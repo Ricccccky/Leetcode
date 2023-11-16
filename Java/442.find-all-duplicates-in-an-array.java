@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=442 lang=java
@@ -17,6 +16,7 @@ class Solution {
             }
             nums[Math.abs(nums[i]) - 1] = -nums[Math.abs(nums[i]) - 1];
         }
+        
         return result;
     }
 }

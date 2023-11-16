@@ -7,20 +7,20 @@
 // @lc code=start
 class Solution {
     public int reverse(int x) {
-        long result = 0;
-        if (x == 0) {
-            return 0;
-        } else {
-            while (x != 0) {
-                result = result * 10 + x % 10;
-                x /= 10;
+        int res = 0;
+        while (x != 0) {
+            int next = x % 10;
+            x /= 10;
+            if (res > Integer.MAX_VALUE / 10 || (res == Integer.MAX_VALUE / 10 && next > 7)) {
+                return 0;
             }
+            if (res < Integer.MIN_VALUE / 10 || (res == Integer.MIN_VALUE / 10 && next < -8)) {
+                return 0;
+            }
+            res = res * 10 + next;
         }
-        if (result <= Integer.MAX_VALUE && result >= Integer.MIN_VALUE) {
-            return (int)result;
-        } else {
-            return 0;
-        }
+
+        return res;
     }
 }
 // @lc code=end

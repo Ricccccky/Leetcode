@@ -28,7 +28,7 @@ class Solution {
                 remain = (1 << (n - 1)) - 1;
                 remain -= (1 << m) - 1;
                 remain = target - remain;
-                dp[target] = Math.min(dp[target], racecar(remain) + n + m + 1);
+                dp[target] = Math.min(dp[target], racecar(remain) + (n - 1) + m + 2);
             }
         }
 

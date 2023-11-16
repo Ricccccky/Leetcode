@@ -18,7 +18,7 @@ class Solution {
                 prev = i;
             }
         }
-        result = Math.max(result, n - prev - 1);
+        result = Math.max(result, n - 1 - prev);
         
         // Two arrays
         // int n = seats.length;

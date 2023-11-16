@@ -9,37 +9,37 @@ import java.util.*;
 // @lc code=start
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        Stack<Integer> temp = new Stack<>();
-        int i = 0;
-        int result = 0;
-        int top;
-        while (i < heights.length) {
-            if (temp.isEmpty()) {
-                temp.push(i);
+        // ascending stack
+        Deque<Integer> stack = new LinkedList<>();
+        int i = 0, result = 0, n = heights.length;
+        while (i < n) {
+            if (stack.isEmpty()) {
+                stack.push(i);
                 i++;
             } else {
-                if (heights[i] >= heights[temp.peek()]) {
-                    temp.push(i);
+                if (heights[i] >= heights[stack.peek()]) {
+                    stack.push(i);
                     i++;
                 } else {
-                    top = temp.pop();
-                    if (temp.isEmpty()) {
+                    int top = stack.pop();
+                    if (stack.isEmpty()) {
                         result = Math.max(result, heights[top] * i);
                     } else {
-                        result = Math.max(result, heights[top] * (i - 1 - temp.peek()));
+                        result = Math.max(result, heights[top] * (i - 1 - stack.peek()));
                     }
                 }
             }
         }
 
-        while (!temp.isEmpty()) {
-            top = temp.pop();
-            if (temp.isEmpty()) {
+        while (!stack.isEmpty()) {
+            int top = stack.pop();
+            if (stack.isEmpty()) {
                 result = Math.max(result, heights[top] * i);
             } else {
-                result = Math.max(result, heights[top] * (i - 1 - temp.peek()));
+                result = Math.max(result, heights[top] * (i - 1 - stack.peek()));
             }
         }
+
         return result;
     }
 }

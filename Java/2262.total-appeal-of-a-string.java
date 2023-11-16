@@ -13,6 +13,9 @@ class Solution {
         int[] last = new int[26];
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
+            /*  Last c at k contributes to all substrings [0, k] including k, k + 1 in total.
+                When meet a new c at i, the c in all substrings [0, i] are contributed by i.
+            */
             cur -= last[c - 'a'];
             last[c - 'a'] = i + 1;
             cur += last[c - 'a'];

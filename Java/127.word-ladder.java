@@ -8,54 +8,48 @@ import java.util.*;
 
 // @lc code=start
 class Solution {
+    // BFS
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        int res = 1;
-        Map<String, List<String>> map = new HashMap<>();
-        Queue<String> queue = new LinkedList<>();
+        int res = 0, n = beginWord.length();
         Set<String> visited = new HashSet<>();
-        wordList.add(beginWord);
+        Deque<String> queue = new LinkedList<>();
+        Map<String, Set<String>> map = new HashMap<>();
         for (String word : wordList) {
-            List<String> list = new ArrayList<>();
-            for (String next : wordList) {
-                if (transformable(word, next)) {
-                    list.add(next);
-                }
+            for (int i = 0; i < n; i++) {
+                String pattern = word.substring(0, i) + "*" + word.substring(i + 1, n);
+                map.putIfAbsent(pattern, new HashSet<>());
+                map.get(pattern).add(word);
             }
-            map.put(word, list);
         }
         queue.offer(beginWord);
-        visited.add(beginWord);
         while (!queue.isEmpty()) {
             int len = queue.size();
+            if (visited.contains(endWord)) {
+                return res;
+            }
             res++;
             while (len-- > 0) {
                 String cur = queue.poll();
-                for (String word : map.get(cur)) {
-                    if (word.equals(endWord)) {
-                        return res;
-                    } else if (visited.contains(word)) {
+                if (visited.contains(cur)) {
+                    continue;
+                }
+                for (int i = 0; i < n; i++) {
+                    String pattern = cur.substring(0, i) + "*" + cur.substring(i + 1, n);
+                    if (!map.containsKey(pattern)) {
                         continue;
-                    } else {
+                    }
+                    for (String word : map.get(pattern)) {
+                        if (visited.contains(word)) {
+                            continue;
+                        }
                         queue.offer(word);
-                        visited.add(word);
                     }
                 }
+                visited.add(cur);
             }
         }
 
         return 0;
-    }
-
-    private boolean transformable(String x, String y) {
-        int diff = 0;
-        int len = x.length();
-        for (int i = 0; i < len && diff <= 1; i++) {
-            if (x.charAt(i) != y.charAt(i)) {
-                diff++;
-            }
-        }
-
-        return diff == 1;
     }
 }
 // @lc code=end

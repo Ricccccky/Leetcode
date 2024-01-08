@@ -44,7 +44,7 @@ class Solution {
                     break;
                 }
                 dummy = dummy.child[c - 'a'];
-                if (dummy.isWord && dp[i]) {
+                if (dummy.isWord) {
                     dp[j + 1] = true;
                 }
             }

@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=996 lang=java
@@ -29,13 +26,13 @@ class Solution {
             }
         }
         for (int num : freq.keySet()) {
-            res += dfs(freq, pairs, num, A.length - 1);
+            res += backtracking(freq, pairs, num, A.length - 1);
         }
 
         return res;
     }
 
-    private int dfs(Map<Integer, Integer> freq, Map<Integer, Set<Integer>> pairs, int num, int left) {
+    private int backtracking(Map<Integer, Integer> freq, Map<Integer, Set<Integer>> pairs, int num, int left) {
         freq.put(num, freq.get(num) - 1);
         int res = 0;
         if (left == 0) {
@@ -43,7 +40,7 @@ class Solution {
         } else {
             for (int next : pairs.get(num)) {
                 if (freq.get(next) != 0) {
-                    res += dfs(freq, pairs, next, left - 1);
+                    res += backtracking(freq, pairs, next, left - 1);
                 }
             }
         }

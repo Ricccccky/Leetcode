@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=515 lang=java
@@ -26,30 +24,28 @@ import java.util.List;
  */
 class Solution {
     public List<Integer> largestValues(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
         if (root == null) {
-            return result;
+            return res;
         }
-        Queue<TreeNode> temp = new LinkedList<>();
-        int len;
-        int max;
-        temp.offer(root);
-        while (!temp.isEmpty()) {
-            len = temp.size();
-            max = Integer.MIN_VALUE;
-            for (int i = 0; i < len; i++) {
-                root = temp.poll();
+        Deque<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int len = queue.size(), max = queue.peek().val;
+            while (len-- > 0) {
+                root = queue.poll();
                 max = Math.max(max, root.val);
                 if (root.left != null) {
-                    temp.offer(root.left);
+                    queue.offer(root.left);
                 }
                 if (root.right != null) {
-                    temp.offer(root.right);
+                    queue.offer(root.right);
                 }
             }
-            result.add(max);
+            res.add(max);
         }
-        return result;
+        
+        return res;
     }
 }
 // @lc code=end

@@ -26,9 +26,11 @@ class Solution {
                     x += dir[0];
                     y += dir[1];
                 }
-                if (maze[x - dir[0]][y - dir[1]] != 2) {
-                    queue.offer(new int[] {x - dir[0], y - dir[1]});
-                    maze[x - dir[0]][y - dir[1]] = 2;
+                x -= dir[0];
+                y -= dir[1];
+                if (maze[x][y] != 2) {
+                    queue.offer(new int[] {x, y});
+                    maze[x][y] = 2;
                 }
             }
         }

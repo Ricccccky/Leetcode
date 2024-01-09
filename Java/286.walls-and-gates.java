@@ -16,7 +16,7 @@ class Solution {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 if (rooms[i][j] == 0) {
-                    queue.add(new int[] {i, j, rooms[i][j]});
+                    queue.add(new int[] {i, j, 0});
                 }
             }
         }
@@ -27,7 +27,7 @@ class Solution {
                 int y = dir[1] + cur[1];
                 if (x >= 0 && x < row && y >= 0 && y < col && rooms[x][y] == Integer.MAX_VALUE) {
                     rooms[x][y] = cur[2] + 1;
-                    queue.add(new int[] {x, y, rooms[x][y]});
+                    queue.add(new int[] {x, y, cur[2] + 1});
                 }
             }
         }

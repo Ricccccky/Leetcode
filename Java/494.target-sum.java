@@ -32,12 +32,11 @@ class Solution {
         for (int i = 1; i <= N; i++) {
             int w = nums[i - 1];
             for (int j = 0; j <= W; j++) {
-                // if (j >= w) {
-                //     dp[i][j] = dp[i - 1][j] + dp[i - 1][j - w];
-                // }
                 if (j >= w) {
+                    // # not include w + # include w
                     dp[i][j] = dp[i - 1][j] + dp[i - 1][j - w];
                 } else {
+                    // # not include w
                     dp[i][j] = dp[i - 1][j];
                 }
             }

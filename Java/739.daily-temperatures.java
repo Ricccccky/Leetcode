@@ -12,10 +12,10 @@ class Solution {
         int[] res = new int[T.length];
         Deque<Integer> stack = new LinkedList<>();
         for (int i = 0; i < T.length; i++) {
-            while (!stack.isEmpty() && T[i] > T[stack.peekFirst()]) {
-                res[stack.peekFirst()] = i - stack.removeFirst();
+            while (!stack.isEmpty() && T[i] > T[stack.peek()]) {
+                res[stack.peek()] = i - stack.pop();
             }
-            stack.addFirst(i);
+            stack.push(i);
         }
 
         return res;

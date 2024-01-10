@@ -7,16 +7,18 @@
 // @lc code=start
 class Solution {
     public boolean isMatch(String s, String p) {
-        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
+        int m = s.length(), n = p.length();
+        boolean[][] dp = new boolean[m + 1][n + 1];
         dp[0][0] = true;
-        for (int i = 0; i < p.length(); i++) {
+        for (int i = 0; i < n; i++) {
             if (p.charAt(i) == '*') {
                 dp[0][i + 1] = dp[0][i - 1];
             }
         }
 
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = 0; j < p.length(); j++) {
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                // Match at current position
                 if (p.charAt(j) == '.' || s.charAt(i) == p.charAt(j)) {
                     dp[i + 1][j + 1] = dp[i][j];
                 }
@@ -26,14 +28,14 @@ class Solution {
                         // '*' doesn't work
                         dp[i + 1][j + 1] = dp[i + 1][j - 1];
                     } else {
-                        // '*' works, matches zero or more of the preceding element || not match
-                        dp[i + 1][j + 1] = (dp[i][j+1] || dp[i+1][j-1]);
+                        // '*' works, matches zero or more of the preceding element in s || not match
+                        dp[i + 1][j + 1] = (dp[i][j + 1] || dp[i + 1][j - 1]);
                     }
                 }
             }
         }
         
-        return dp[s.length()][p.length()];
+        return dp[m][n];
     }
 }
 // @lc code=end

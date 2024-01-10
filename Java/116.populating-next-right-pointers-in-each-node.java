@@ -34,6 +34,7 @@ class Solution {
         if (root == null) {
             return null;
         }
+        // first node in every level
         Node pre = root;
         while (pre.left != null) {
             Node cur = pre;

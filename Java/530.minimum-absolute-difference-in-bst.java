@@ -29,10 +29,10 @@ class Solution {
         int res = Integer.MAX_VALUE;
         while (root != null || !stack.isEmpty()) {
             if (root != null) {
-                stack.addLast(root);
+                stack.push(root);
                 root = root.left;
             } else {
-                root = stack.removeLast();
+                root = stack.pop();
                 if (pre != null) {
                     res = Math.min(res, Math.abs(pre.val - root.val));
                 }

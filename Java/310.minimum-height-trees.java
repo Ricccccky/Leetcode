@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /*
  * @lc app=leetcode id=310 lang=java
@@ -30,12 +28,13 @@ class Solution {
                 leaves.add(i);
             }
         }
+        // Remove leaves from each level, the # of final root cannot exceed 2, or there will be cycles
         while (n > 2) {
             List<Integer> result = new ArrayList<>();
             n -= leaves.size();
-            for (int leaf : leaves) {
+            for (Integer leaf : leaves) {
                 int parent = adjTable.get(leaf).iterator().next();
-                adjTable.get(parent).remove(new Integer(leaf));
+                adjTable.get(parent).remove(leaf);
                 if (adjTable.get(parent).size() == 1) {
                     result.add(parent);
                 }

@@ -1,7 +1,5 @@
 import java.util.*;
 
-import javax.swing.tree.TreeNode;
-
 /*
  * @lc app=leetcode id=95 lang=java
  *
@@ -55,7 +53,9 @@ class Solution {
             return res;
         }
         for (int i = start; i <= end; i++) {
+            // smaller number on left subtree
             List<TreeNode> left = generateTrees(start, i - 1);
+            // larger number on right subtree
             List<TreeNode> right = generateTrees(i + 1, end);
             for (TreeNode l : left) {
                 for (TreeNode r : right) {

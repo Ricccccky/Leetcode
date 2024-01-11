@@ -26,19 +26,17 @@ class Solution {
         // }
 
         //One-pass
-        int p0 = -1;
-        int p1 = 0;
-        int p2 = nums.length - 1;
-        while (p1 <= p2) {
-            if (nums[p1] == 0) {
-                p0++;
-                swap(nums, p0, p1);
-                p1++;
-            } else if (nums[p1] == 1) {
-                p1++;
+        int n = nums.length, i = 0, j = 0, k = n - 1;
+        while (j <= k) {
+            if (nums[j] == 0) {
+                swap(nums, i, j);
+                i++;
+                j++;
+            } else if (nums[j] == 2) {
+                swap(nums, j, k);
+                k--;
             } else {
-                swap(nums, p1, p2);
-                p2--;
+                j++;
             }
         }
     }

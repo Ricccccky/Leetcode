@@ -24,6 +24,15 @@ import java.util.*;
  */
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
+        // // DFS
+        // if (root == null) {
+        //     return res;
+        // }
+        // dfs(root, 0);
+
+        // return res;
+
+        // BFS
         List<Integer> result = new ArrayList<>();
         if (root == null) {
             return result;
@@ -44,7 +53,22 @@ class Solution {
             }
             result.add(root.val);
         }
+
         return result;
+    }
+
+    private List<Integer> res = new ArrayList<>();
+
+    private void dfs(TreeNode root, int level) {
+        if (level == res.size()) {
+            res.add(root.val);
+        }
+        if (root.right != null) {
+            dfs(root.right, level + 1);
+        }
+        if (root.left != null) {
+            dfs(root.left, level + 1);
+        }
     }
 }
 // @lc code=end

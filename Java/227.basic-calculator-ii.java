@@ -10,25 +10,24 @@ import java.util.*;
 class Solution {
     public int calculate(String s) {
         Deque<Integer> stack = new LinkedList<>();
-        int num = 0;
-        int res = 0;
-        char op = '+';
+        int num = 0, res = 0;
+        char prevOP = '+';
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             if (Character.isDigit(c)) {
                 num = 10 * num + (c - '0');
             }
             if (!Character.isDigit(c) && !Character.isWhitespace(c) || i == s.length() - 1) {
-                if (op == '+') {
+                if (prevOP == '+') {
                     stack.push(num);
-                } else if (op == '-') {
+                } else if (prevOP == '-') {
                     stack.push(-num);
-                } else if (op == '*') {
+                } else if (prevOP == '*') {
                     stack.push(stack.pop() * num);
-                } else if (op == '/') {
+                } else if (prevOP == '/') {
                     stack.push(stack.pop() / num);
                 }
-                op = c;
+                prevOP = c;
                 num = 0;
             }
         }
